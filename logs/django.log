@@ -1,0 +1,691 @@
+INFO 2025-08-01 18:18:31,087 autoreload 12127 130445258061632 Watching for file changes with StatReloader
+INFO 2025-08-01 18:18:40,418 basehttp 12127 130445196559936 "GET /admin/ HTTP/1.1" 302 0
+WARNING 2025-08-01 18:18:45,278 log 12127 130445196559936 Unauthorized: /api/v1/
+WARNING 2025-08-01 18:18:45,278 basehttp 12127 130445196559936 "GET /api/v1/ HTTP/1.1" 401 58
+INFO 2025-08-01 18:18:52,149 basehttp 12127 130445196559936 "GET /swagger/ HTTP/1.1" 200 1599
+INFO 2025-08-01 18:19:05,390 autoreload 12127 130445258061632 /home/dhanesh/inventory_management_system/inventory_system/apps/inventory/models.py changed, reloading.
+INFO 2025-08-01 18:19:06,213 autoreload 12317 123128739059520 Watching for file changes with StatReloader
+INFO 2025-08-01 18:19:30,526 autoreload 12395 132753201149760 Watching for file changes with StatReloader
+ERROR 2025-08-01 18:19:42,489 exception 12317 123128677557824 Invalid HTTP_HOST header: '0.0.0.0:8000'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '0.0.0.0:8000'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+WARNING 2025-08-01 18:19:42,572 log 12317 123128677557824 Bad Request: /
+WARNING 2025-08-01 18:19:42,572 basehttp 12317 123128677557824 "GET / HTTP/1.1" 400 80706
+ERROR 2025-08-01 18:19:42,710 exception 12317 123128669148736 Invalid HTTP_HOST header: '0.0.0.0:8000'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '0.0.0.0:8000'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+WARNING 2025-08-01 18:19:42,757 log 12317 123128669148736 Bad Request: /favicon.ico
+WARNING 2025-08-01 18:19:42,759 basehttp 12317 123128669148736 "GET /favicon.ico HTTP/1.1" 400 80757
+ERROR 2025-08-01 18:19:48,654 exception 12317 123128669148736 Invalid HTTP_HOST header: '0.0.0.0:8000'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '0.0.0.0:8000'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+WARNING 2025-08-01 18:19:48,715 log 12317 123128669148736 Bad Request: /admin/
+WARNING 2025-08-01 18:19:48,716 basehttp 12317 123128669148736 "GET /admin/ HTTP/1.1" 400 80870
+ERROR 2025-08-01 18:19:48,833 exception 12317 123128677557824 Invalid HTTP_HOST header: '0.0.0.0:8000'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/utils/deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/middleware/common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/http/request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '0.0.0.0:8000'. You may need to add '0.0.0.0' to ALLOWED_HOSTS.
+WARNING 2025-08-01 18:19:48,888 log 12317 123128677557824 Bad Request: /favicon.ico
+WARNING 2025-08-01 18:19:48,889 basehttp 12317 123128677557824 "GET /favicon.ico HTTP/1.1" 400 80763
+INFO 2025-08-01 18:22:25,045 autoreload 12317 123128739059520 /home/dhanesh/inventory_management_system/inventory_system/settings.py changed, reloading.
+INFO 2025-08-01 18:22:27,011 autoreload 13313 123568887179072 Watching for file changes with StatReloader
+INFO 2025-08-01 18:22:35,515 basehttp 13313 123568758191680 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-08-01 18:22:35,630 basehttp 13313 123568758191680 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4181
+INFO 2025-08-01 18:22:35,825 basehttp 13313 123568758191680 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-08-01 18:22:35,827 basehttp 13313 123568749798976 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-08-01 18:22:35,845 basehttp 13313 123568715179584 "GET /static/admin/css/login.css HTTP/1.1" 200 958
+INFO 2025-08-01 18:22:35,829 basehttp 13313 123568740357696 "GET /static/admin/css/responsive.css HTTP/1.1" 200 18533
+INFO 2025-08-01 18:22:35,840 basehttp 13313 123568723572288 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-08-01 18:22:35,838 basehttp 13313 123568731964992 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-08-01 18:22:35,892 basehttp 13313 123568740357696 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+WARNING 2025-08-01 18:22:36,070 log 13313 123568740357696 Not Found: /favicon.ico
+WARNING 2025-08-01 18:22:36,074 basehttp 13313 123568740357696 "GET /favicon.ico HTTP/1.1" 404 3438
+INFO 2025-08-01 18:22:59,014 basehttp 13313 123568740357696 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-01 18:22:59,041 basehttp 13313 123568740357696 "GET /admin/ HTTP/1.1" 200 12548
+INFO 2025-08-01 18:22:59,100 basehttp 13313 123568740357696 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-08-01 18:22:59,145 basehttp 13313 123568740357696 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-08-01 18:22:59,146 basehttp 13313 123568715179584 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+WARNING 2025-08-01 18:23:10,640 log 13313 123568740357696 Not Found: /
+WARNING 2025-08-01 18:23:10,640 basehttp 13313 123568740357696 "GET / HTTP/1.1" 404 3387
+WARNING 2025-08-01 18:23:14,040 log 13313 123568740357696 Not Found: /docs
+WARNING 2025-08-01 18:23:14,042 basehttp 13313 123568740357696 "GET /docs HTTP/1.1" 404 3417
+INFO 2025-08-01 18:23:27,005 basehttp 13313 123568740357696 "GET /swagger HTTP/1.1" 301 0
+INFO 2025-08-01 18:23:27,017 basehttp 13313 123568715179584 "GET /swagger/ HTTP/1.1" 200 1599
+INFO 2025-08-01 18:23:27,034 basehttp 13313 123568715179584 "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+INFO 2025-08-01 18:23:27,045 basehttp 13313 123568731964992 "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+INFO 2025-08-01 18:23:27,048 basehttp 13313 123568723572288 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 145206
+INFO 2025-08-01 18:23:27,049 basehttp 13313 123568740357696 "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+INFO 2025-08-01 18:23:27,050 basehttp 13313 123568758191680 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 322863
+INFO 2025-08-01 18:23:27,053 basehttp 13313 123568749798976 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1046583
+INFO 2025-08-01 18:23:27,055 basehttp 13313 123568731964992 "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 14964
+INFO 2025-08-01 18:23:27,322 basehttp 13313 123568715179584 "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+ERROR 2025-08-01 18:23:27,404 log 13313 123568731964992 Internal Server Error: /swagger/
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/views.py", line 96, in get
+    schema = generator.get_schema(request, self.public)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/generators.py", line 276, in get_schema
+    paths, prefix = self.get_paths(endpoints, components, request, public)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/generators.py", line 482, in get_paths
+    operation = self.get_operation(view, path, prefix, method, components, request)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/generators.py", line 524, in get_operation
+    operation = view_inspector.get_operation(operation_keys)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/inspectors/view.py", line 33, in get_operation
+    query = self.get_query_parameters()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/inspectors/view.py", line 293, in get_query_parameters
+    natural_parameters = self.get_filter_parameters() + self.get_pagination_parameters()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/inspectors/base.py", line 409, in get_filter_parameters
+    fields += self.probe_inspectors(self.filter_inspectors, 'get_filter_parameters', filter_backend()) or []
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/inspectors/base.py", line 110, in probe_inspectors
+    result = method(obj, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/inspectors/query.py", line 42, in get_filter_parameters
+    return list(map(self.param_to_schema, filter_backend.get_schema_operation_parameters(self.view)))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/rest_framework/backends.py", line 146, in get_schema_operation_parameters
+    filterset_class = self.get_filterset_class(view, queryset)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/rest_framework/backends.py", line 51, in get_filterset_class
+    class AutoFilterSet(self.filterset_base):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/filterset.py", line 62, in __new__
+    new_class.base_filters = new_class.get_filters()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/filterset.py", line 349, in get_filters
+    raise TypeError(
+TypeError: 'Meta.fields' must not contain non-model field names: is_low_stock, is_out_of_stock
+ERROR 2025-08-01 18:23:27,407 basehttp 13313 123568731964992 "GET /swagger/?format=openapi HTTP/1.1" 500 186066
+WARNING 2025-08-01 18:23:36,793 log 13313 123568731964992 Not Found: /swagger/er
+WARNING 2025-08-01 18:23:36,793 basehttp 13313 123568731964992 "GET /swagger/er HTTP/1.1" 404 3435
+WARNING 2025-08-01 18:23:39,255 log 13313 123568731964992 Not Found: /swagger/er/
+WARNING 2025-08-01 18:23:39,255 basehttp 13313 123568731964992 "GET /swagger/er/ HTTP/1.1" 404 3438
+INFO 2025-08-01 18:23:42,763 basehttp 13313 123568731964992 "GET /swagger/ HTTP/1.1" 200 1599
+ERROR 2025-08-01 18:23:42,953 log 13313 123568731964992 Internal Server Error: /swagger/
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/views.py", line 96, in get
+    schema = generator.get_schema(request, self.public)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/generators.py", line 276, in get_schema
+    paths, prefix = self.get_paths(endpoints, components, request, public)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/generators.py", line 482, in get_paths
+    operation = self.get_operation(view, path, prefix, method, components, request)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/generators.py", line 524, in get_operation
+    operation = view_inspector.get_operation(operation_keys)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/inspectors/view.py", line 33, in get_operation
+    query = self.get_query_parameters()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/inspectors/view.py", line 293, in get_query_parameters
+    natural_parameters = self.get_filter_parameters() + self.get_pagination_parameters()
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/inspectors/base.py", line 409, in get_filter_parameters
+    fields += self.probe_inspectors(self.filter_inspectors, 'get_filter_parameters', filter_backend()) or []
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/inspectors/base.py", line 110, in probe_inspectors
+    result = method(obj, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_yasg/inspectors/query.py", line 42, in get_filter_parameters
+    return list(map(self.param_to_schema, filter_backend.get_schema_operation_parameters(self.view)))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/rest_framework/backends.py", line 146, in get_schema_operation_parameters
+    filterset_class = self.get_filterset_class(view, queryset)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/rest_framework/backends.py", line 51, in get_filterset_class
+    class AutoFilterSet(self.filterset_base):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/filterset.py", line 62, in __new__
+    new_class.base_filters = new_class.get_filters()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/filterset.py", line 349, in get_filters
+    raise TypeError(
+TypeError: 'Meta.fields' must not contain non-model field names: is_low_stock, is_out_of_stock
+ERROR 2025-08-01 18:23:42,954 basehttp 13313 123568731964992 "GET /swagger/?format=openapi HTTP/1.1" 500 186066
+WARNING 2025-08-01 18:57:21,778 log 16359 127136586775424 Unauthorized: /api/v1/
+WARNING 2025-08-01 19:05:22,641 log 16700 131045987433344 Unauthorized: /api/v1/products/
+ERROR 2025-08-01 19:05:22,827 log 16700 131045987433344 Internal Server Error: /api/v1/inventory/
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/mixins.py", line 38, in list
+    queryset = self.filter_queryset(self.get_queryset())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/generics.py", line 150, in filter_queryset
+    queryset = backend().filter_queryset(self.request, queryset, self)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/rest_framework/backends.py", line 68, in filter_queryset
+    filterset = self.get_filterset(request, queryset, view)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/rest_framework/backends.py", line 20, in get_filterset
+    filterset_class = self.get_filterset_class(view, queryset)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/rest_framework/backends.py", line 51, in get_filterset_class
+    class AutoFilterSet(self.filterset_base):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/filterset.py", line 62, in __new__
+    new_class.base_filters = new_class.get_filters()
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django_filters/filterset.py", line 349, in get_filters
+    raise TypeError(
+TypeError: 'Meta.fields' must not contain non-model field names: is_low_stock, is_out_of_stock
+WARNING 2025-08-01 19:05:46,546 log 16736 131375623220096 Unauthorized: /api/v1/products/
+INFO 2025-08-01 19:10:05,584 autoreload 16849 125778109205376 Watching for file changes with StatReloader
+INFO 2025-08-01 19:10:13,709 basehttp 16849 125777979897408 "GET /swagger/ HTTP/1.1" 200 1599
+INFO 2025-08-01 19:10:13,730 basehttp 16849 125777971504704 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 304 0
+INFO 2025-08-01 19:10:13,732 basehttp 16849 125777979897408 "GET /static/drf-yasg/style.css HTTP/1.1" 304 0
+INFO 2025-08-01 19:10:13,733 basehttp 16849 125777963112000 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 304 0
+INFO 2025-08-01 19:10:13,738 basehttp 16849 125777954719296 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 304 0
+INFO 2025-08-01 19:10:13,737 basehttp 16849 125777971504704 "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 304 0
+INFO 2025-08-01 19:10:13,736 basehttp 16849 125777946326592 "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 304 0
+INFO 2025-08-01 19:10:13,741 basehttp 16849 125777937933888 "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 304 0
+INFO 2025-08-01 19:10:14,027 basehttp 16849 125777979897408 "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 304 0
+INFO 2025-08-01 19:10:14,146 basehttp 16849 125777971504704 "GET /swagger/?format=openapi HTTP/1.1" 200 72896
+INFO 2025-08-01 19:18:41,280 basehttp 16849 125777979897408 "GET /swagger/ HTTP/1.1" 200 1599
+INFO 2025-08-01 19:18:41,770 basehttp 16849 125777979897408 "GET /swagger/?format=openapi HTTP/1.1" 200 72896
+INFO 2025-08-01 20:05:56,558 autoreload 19299 136954416282496 Watching for file changes with StatReloader
+WARNING 2025-08-01 20:06:02,069 log 19299 136954354759232 Not Found: /swagger/
+WARNING 2025-08-01 20:06:02,070 basehttp 19299 136954354759232 "GET /swagger/ HTTP/1.1" 404 3382
+WARNING 2025-08-01 20:06:03,274 log 19299 136954354759232 Not Found: /swagger/
+WARNING 2025-08-01 20:06:03,274 basehttp 19299 136954354759232 "GET /swagger/ HTTP/1.1" 404 3382
+WARNING 2025-08-01 20:06:18,704 log 19299 136954354759232 Not Found: /
+WARNING 2025-08-01 20:06:18,704 basehttp 19299 136954354759232 "GET / HTTP/1.1" 404 3340
+WARNING 2025-08-01 20:06:21,822 log 19299 136954354759232 Not Found: /swagger/
+WARNING 2025-08-01 20:06:21,823 basehttp 19299 136954354759232 "GET /swagger/ HTTP/1.1" 404 3382
+WARNING 2025-08-01 20:06:25,559 log 19299 136954354759232 Not Found: /
+WARNING 2025-08-01 20:06:25,560 basehttp 19299 136954354759232 "GET / HTTP/1.1" 404 3340
+WARNING 2025-08-01 20:06:31,507 log 19299 136954336892480 Not Found: /
+WARNING 2025-08-01 20:06:31,507 basehttp 19299 136954336892480 "GET / HTTP/1.1" 404 3342
+WARNING 2025-08-01 20:06:31,602 log 19299 136954336892480 Not Found: /favicon.ico
+WARNING 2025-08-01 20:06:31,604 basehttp 19299 136954336892480 "GET /favicon.ico HTTP/1.1" 404 3393
+INFO 2025-08-01 20:06:43,405 basehttp 19299 136954336892480 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-08-01 20:06:43,431 basehttp 19299 136954336892480 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4181
+INFO 2025-08-01 20:06:43,519 basehttp 19299 136954336892480 "GET /static/admin/css/base.css HTTP/1.1" 200 21207
+INFO 2025-08-01 20:06:43,521 basehttp 19299 136954310616640 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-08-01 20:06:43,521 basehttp 19299 136954319025728 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2929
+INFO 2025-08-01 20:06:43,522 basehttp 19299 136953890600512 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-08-01 20:06:43,522 basehttp 19299 136954328483392 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2694
+INFO 2025-08-01 20:06:54,157 basehttp 19299 136954336892480 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-01 20:06:54,187 basehttp 19299 136954336892480 "GET /admin/ HTTP/1.1" 200 12548
+INFO 2025-08-01 20:06:54,248 basehttp 19299 136954336892480 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-08-01 20:06:54,295 basehttp 19299 136954336892480 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-08-01 20:06:54,296 basehttp 19299 136953890600512 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-08-01 20:07:00,235 basehttp 19299 136954336892480 "GET /admin/orders/purchaseorderitem/ HTTP/1.1" 200 27805
+INFO 2025-08-01 20:07:00,274 basehttp 19299 136954336892480 "GET /admin/jsi18n/ HTTP/1.1" 200 3343
+INFO 2025-08-01 20:07:00,280 basehttp 19299 136954328483392 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6566
+INFO 2025-08-01 20:07:00,284 basehttp 19299 136954319025728 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-08-01 20:07:00,288 basehttp 19299 136953882207808 "GET /static/admin/js/core.js HTTP/1.1" 200 5682
+INFO 2025-08-01 20:07:00,285 basehttp 19299 136953890600512 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 292458
+INFO 2025-08-01 20:07:00,291 basehttp 19299 136954310616640 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 232381
+INFO 2025-08-01 20:07:00,304 basehttp 19299 136953890600512 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-08-01 20:07:00,305 basehttp 19299 136953882207808 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-08-01 20:07:00,305 basehttp 19299 136954328483392 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 8943
+INFO 2025-08-01 20:07:00,306 basehttp 19299 136954319025728 "GET /static/admin/js/actions.js HTTP/1.1" 200 7872
+INFO 2025-08-01 20:07:00,310 basehttp 19299 136954310616640 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-08-01 20:07:00,364 basehttp 19299 136954310616640 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-08-01 20:07:00,397 basehttp 19299 136953882207808 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+ERROR 2025-08-01 20:07:02,712 log 19299 136954310616640 Internal Server Error: /admin/inventory/inventory/
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/db/models/options.py", line 681, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'stock_value'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/utils.py", line 272, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/utils.py", line 303, in _get_non_gfk_field
+    field = opts.get_field(name)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/db/models/options.py", line 683, in get_field
+    raise FieldDoesNotExist(
+django.core.exceptions.FieldDoesNotExist: Inventory has no field named 'stock_value'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/templatetags/base.py", line 45, in render
+    return super().render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/library.py", line 258, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 336, in result_list
+    "results": list(results(cl)),
+               ^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 312, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 303, in __init__
+    super().__init__(*items)
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 213, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/utils.py", line 281, in lookup_field
+    value = attr(obj)
+            ^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/inventory_system/apps/inventory/admin.py", line 112, in stock_value
+    return format_html('<span style="color: green;">${:.2f}</span>', value)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/utils/html.py", line 105, in format_html
+    return mark_safe(format_string.format(*args_safe, **kwargs_safe))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Unknown format code 'f' for object of type 'SafeString'
+ERROR 2025-08-01 20:07:02,715 basehttp 19299 136954310616640 "GET /admin/inventory/inventory/ HTTP/1.1" 500 416782
+INFO 2025-08-01 20:07:06,585 basehttp 19299 136954310616640 "GET /admin/orders/purchaseorderitem/ HTTP/1.1" 200 27805
+ERROR 2025-08-01 20:07:08,548 log 19299 136954310616640 Internal Server Error: /admin/inventory/stockmovement/
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/db/models/options.py", line 681, in get_field
+    return self.fields_map[field_name]
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+KeyError: 'movement_value'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/utils.py", line 272, in lookup_field
+    f = _get_non_gfk_field(opts, name)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/utils.py", line 303, in _get_non_gfk_field
+    field = opts.get_field(name)
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/db/models/options.py", line 683, in get_field
+    raise FieldDoesNotExist(
+django.core.exceptions.FieldDoesNotExist: StockMovement has no field named 'movement_value'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 220, in _get_response
+    response = response.render()
+               ^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/templatetags/base.py", line 45, in render
+    return super().render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/template/library.py", line 258, in render
+    _dict = self.func(*resolved_args, **resolved_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 336, in result_list
+    "results": list(results(cl)),
+               ^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 312, in results
+    yield ResultList(None, items_for_result(cl, res, None))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 303, in __init__
+    super().__init__(*items)
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/templatetags/admin_list.py", line 213, in items_for_result
+    f, attr, value = lookup_field(field_name, result, cl.model_admin)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/contrib/admin/utils.py", line 281, in lookup_field
+    value = attr(obj)
+            ^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/inventory_system/apps/inventory/admin.py", line 191, in movement_value
+    return format_html('<span style="color: green;">${:.2f}</span>', value)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/utils/html.py", line 105, in format_html
+    return mark_safe(format_string.format(*args_safe, **kwargs_safe))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Unknown format code 'f' for object of type 'SafeString'
+ERROR 2025-08-01 20:07:08,550 basehttp 19299 136954310616640 "GET /admin/inventory/stockmovement/ HTTP/1.1" 500 416349
+INFO 2025-08-01 20:07:13,470 basehttp 19299 136954310616640 "GET /admin/orders/purchaseorderitem/ HTTP/1.1" 200 27805
+INFO 2025-08-01 20:07:16,409 basehttp 19299 136954310616640 "GET /admin/ HTTP/1.1" 200 12548
+INFO 2025-08-01 20:07:33,160 basehttp 19299 136954310616640 "GET /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-08-01 20:07:33,178 basehttp 19299 136954310616640 "GET /admin/ HTTP/1.1" 200 12548
+WARNING 2025-08-01 20:07:39,140 log 19299 136954310616640 Not Found: /swagger
+WARNING 2025-08-01 20:07:39,140 basehttp 19299 136954310616640 "GET /swagger HTTP/1.1" 404 3381
+INFO 2025-08-01 20:07:54,878 basehttp 19299 136954310616640 "GET /admin/ HTTP/1.1" 200 12548
+INFO 2025-08-01 20:07:59,124 basehttp 19299 136954310616640 "GET /api/docs HTTP/1.1" 301 0
+INFO 2025-08-01 20:07:59,135 basehttp 19299 136953882207808 "GET /api/docs/ HTTP/1.1" 200 4664
+ERROR 2025-08-01 20:07:59,341 log 19299 136953882207808 Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_spectacular/views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_spectacular/views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_spectacular/generators.py", line 285, in get_schema
+    paths=self.parse(request, public),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_spectacular/generators.py", line 250, in parse
+    assert isinstance(view.schema, AutoSchema), (
+AssertionError: Incompatible AutoSchema used on View <class 'drf_spectacular.views.SpectacularSwaggerView'>. Is DRF's DEFAULT_SCHEMA_CLASS pointing to "drf_spectacular.openapi.AutoSchema" or any other drf-spectacular compatible AutoSchema?
+ERROR 2025-08-01 20:07:59,343 basehttp 19299 136953882207808 "GET /api/schema/ HTTP/1.1" 500 131737
+ERROR 2025-08-01 20:07:59,401 log 19299 136953882207808 Internal Server Error: /api/schema/
+Traceback (most recent call last):
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/views/decorators/csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/rest_framework/views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_spectacular/views.py", line 84, in get
+    return self._get_schema_response(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_spectacular/views.py", line 92, in _get_schema_response
+    data=generator.get_schema(request=request, public=self.serve_public),
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_spectacular/generators.py", line 285, in get_schema
+    paths=self.parse(request, public),
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dhanesh/inventory_management_system/venv/lib/python3.12/site-packages/drf_spectacular/generators.py", line 250, in parse
+    assert isinstance(view.schema, AutoSchema), (
+AssertionError: Incompatible AutoSchema used on View <class 'drf_spectacular.views.SpectacularSwaggerView'>. Is DRF's DEFAULT_SCHEMA_CLASS pointing to "drf_spectacular.openapi.AutoSchema" or any other drf-spectacular compatible AutoSchema?
+ERROR 2025-08-01 20:07:59,402 basehttp 19299 136953882207808 "GET /api/schema/ HTTP/1.1" 500 131737
+INFO 2025-08-02 04:44:52,457 autoreload 19299 136954416282496 /home/dhanesh/inventory_management_system/inventory_system/settings.py changed, reloading.
+INFO 2025-08-02 04:44:53,050 autoreload 23051 139105818397568 Watching for file changes with StatReloader
+INFO 2025-08-02 04:44:57,719 basehttp 23051 139105756878400 "GET /api/docs/ HTTP/1.1" 200 4664
+INFO 2025-08-02 04:44:59,213 basehttp 23051 139105756878400 "GET /api/schema/ HTTP/1.1" 200 315065
+INFO 2025-08-02 04:46:31,059 autoreload 23051 139105818397568 /home/dhanesh/inventory_management_system/inventory_system/settings.py changed, reloading.
+INFO 2025-08-02 04:46:31,838 autoreload 23197 131186270505856 Watching for file changes with StatReloader
+INFO 2025-08-02 04:46:37,558 basehttp 23197 131186208990784 "GET /api/docs/ HTTP/1.1" 200 4664
+INFO 2025-08-02 04:46:37,732 basehttp 23197 131186208990784 "GET /api/schema/ HTTP/1.1" 200 961
+INFO 2025-08-02 04:46:41,762 basehttp 23197 131186208990784 "GET /api/docs/ HTTP/1.1" 200 4664
+INFO 2025-08-02 04:46:41,861 basehttp 23197 131186208990784 "GET /api/schema/ HTTP/1.1" 200 961
+INFO 2025-08-02 04:46:44,682 basehttp 23197 131186208990784 "GET /api/docs/ HTTP/1.1" 200 4664
+INFO 2025-08-02 04:46:44,796 basehttp 23197 131186208990784 "GET /api/schema/ HTTP/1.1" 200 961
+INFO 2025-08-02 04:46:49,777 autoreload 23197 131186270505856 /home/dhanesh/inventory_management_system/inventory_system/api/urls.py changed, reloading.
+INFO 2025-08-02 04:46:50,438 autoreload 23276 140363162631040 Watching for file changes with StatReloader
+INFO 2025-08-02 04:46:55,897 basehttp 23276 140363100018240 "GET /api/docs/ HTTP/1.1" 200 4664
+INFO 2025-08-02 04:46:56,045 basehttp 23276 140363100018240 "GET /api/schema/ HTTP/1.1" 200 961
+INFO 2025-08-02 04:46:57,206 basehttp 23276 140363100018240 "GET /api/docs/ HTTP/1.1" 200 4664
+INFO 2025-08-02 04:46:57,361 basehttp 23276 140363100018240 "GET /api/schema/ HTTP/1.1" 200 961
+INFO 2025-08-02 04:47:05,662 autoreload 23276 140363162631040 /home/dhanesh/inventory_management_system/inventory_system/settings.py changed, reloading.
+INFO 2025-08-02 04:47:06,189 autoreload 23341 138032754637696 Watching for file changes with StatReloader
+INFO 2025-08-02 04:47:08,559 basehttp 23341 138032692012608 "GET /api/docs/ HTTP/1.1" 200 4664
+INFO 2025-08-02 04:47:09,537 basehttp 23341 138032692012608 "GET /api/schema/ HTTP/1.1" 200 335809
+INFO 2025-08-02 04:47:39,317 basehttp 23341 138032692012608 "POST /api/token/ HTTP/1.1" 200 483
+INFO 2025-08-02 04:47:58,654 basehttp 23341 138032692012608 "GET /api/v1/categories/ HTTP/1.1" 200 1238
+INFO 2025-08-02 04:48:19,311 basehttp 23341 138032692012608 "GET /api/v1/categories/1a68bd8d-6502-48de-b900-3695d9f22bf2/ HTTP/1.1" 200 236
+INFO 2025-08-02 04:50:42,242 basehttp 23341 138032692012608 "GET /api/v1/categories/1a68bd8d-6502-48de-b900-3695d9f22bf2/products/ HTTP/1.1" 200 1116
+INFO 2025-08-02 04:50:55,385 basehttp 23341 138032692012608 "GET /api/v1/products/ HTTP/1.1" 200 7350
+INFO 2025-08-02 04:51:18,643 basehttp 23341 138032692012608 "GET /api/v1/products/565f6152-78c4-435f-98a6-d92691e37ff2/ HTTP/1.1" 200 551
+INFO 2025-08-02 05:03:38,226 autoreload 25001 130676671757184 Watching for file changes with StatReloader
+INFO 2025-08-02 05:03:48,473 basehttp 25001 130676609140288 "GET /api/docs/ HTTP/1.1" 200 4664
+INFO 2025-08-02 05:03:50,075 basehttp 25001 130676609140288 "GET /api/schema/ HTTP/1.1" 200 335809
