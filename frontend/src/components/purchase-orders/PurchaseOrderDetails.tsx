@@ -9,8 +9,8 @@ interface PurchaseOrderDetailsProps {
 
 const PurchaseOrderDetails: React.FC<PurchaseOrderDetailsProps> = ({
   order,
-  onStatusUpdate,
-  onReceiveOrder,
+  onStatusUpdate: _onStatusUpdate,
+  onReceiveOrder: _onReceiveOrder,
 }) => {
   return (
     <div className="p-6">

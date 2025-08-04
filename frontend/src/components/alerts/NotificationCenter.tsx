@@ -8,7 +8,7 @@ interface NotificationCenterProps {
 }
 
 const NotificationCenter: React.FC<NotificationCenterProps> = ({
-  notifications,
+  notifications: _notifications,
   loading,
 }) => {
   if (loading) {

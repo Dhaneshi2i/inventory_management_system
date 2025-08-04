@@ -25,7 +25,7 @@ const PurchaseOrderList: React.FC<PurchaseOrderListProps> = ({
   loading,
   onViewOrder,
   onReceiveOrder,
-  onStatusUpdate,
+  onStatusUpdate: _onStatusUpdate,
   searchTerm,
 }) => {
   const getStatusColor = (status: string) => {

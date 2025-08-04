@@ -8,9 +8,9 @@ interface SupplierDirectoryProps {
 }
 
 const SupplierDirectory: React.FC<SupplierDirectoryProps> = ({
-  suppliers,
-  loading,
-  purchaseOrders,
+  suppliers: _suppliers,
+  loading: _loading,
+  purchaseOrders: _purchaseOrders,
 }) => {
   return (
     <div className="space-y-6">

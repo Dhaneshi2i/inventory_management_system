@@ -7,8 +7,8 @@ interface ReorderRecommendationsProps {
 }
 
 const ReorderRecommendations: React.FC<ReorderRecommendationsProps> = ({
-  inventory,
-  warehouses,
+  inventory: _inventory,
+  warehouses: _warehouses,
 }) => {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200">

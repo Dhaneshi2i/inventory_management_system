@@ -6,8 +6,8 @@ interface AlertConfigurationProps {
 }
 
 const AlertConfiguration: React.FC<AlertConfigurationProps> = ({
-  onSubmit,
-  loading,
+  onSubmit: _onSubmit,
+  loading: _loading,
 }) => {
   return (
     <div className="p-6">

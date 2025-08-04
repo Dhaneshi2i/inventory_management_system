@@ -9,8 +9,8 @@ interface ReceivingInterfaceProps {
 
 const ReceivingInterface: React.FC<ReceivingInterfaceProps> = ({
   order,
-  onSubmit,
-  loading,
+  onSubmit: _onSubmit,
+  loading: _loading,
 }) => {
   return (
     <div className="p-6">

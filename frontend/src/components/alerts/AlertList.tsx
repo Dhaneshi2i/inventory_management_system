@@ -10,10 +10,10 @@ interface AlertListProps {
 }
 
 const AlertList: React.FC<AlertListProps> = ({
-  alerts,
+  alerts: _alerts,
   loading,
-  onResolveAlert,
-  filters,
+  onResolveAlert: _onResolveAlert,
+  filters: _filters,
 }) => {
   if (loading) {
     return (

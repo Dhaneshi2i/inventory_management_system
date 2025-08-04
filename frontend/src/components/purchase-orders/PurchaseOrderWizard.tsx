@@ -9,10 +9,10 @@ interface PurchaseOrderWizardProps {
 }
 
 const PurchaseOrderWizard: React.FC<PurchaseOrderWizardProps> = ({
-  suppliers,
-  products,
-  onSubmit,
-  loading,
+  suppliers: _suppliers,
+  products: _products,
+  onSubmit: _onSubmit,
+  loading: _loading,
 }) => {
   return (
     <div className="p-6">

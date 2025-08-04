@@ -18,7 +18,7 @@ interface StockMovementHistoryProps {
 const StockMovementHistory: React.FC<StockMovementHistoryProps> = ({ 
   movements, 
   loading, 
-  warehouseId 
+    warehouseId: _warehouseId
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<string>('all');
