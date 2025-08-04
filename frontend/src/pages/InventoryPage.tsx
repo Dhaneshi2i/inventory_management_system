@@ -52,22 +52,22 @@ const InventoryPage: React.FC = () => {
   // Queries
   const { data: dashboardData, isLoading: dashboardLoading } = useQuery({
     queryKey: ['dashboard-summary'],
-    queryFn: () => apiService.get<DashboardSummary>('/dashboard/summary/'),
+    queryFn: () => apiService.get<DashboardSummary>('/api/v1/dashboard/summary/'),
     refetchInterval: autoRefresh ? 30000 : false, // 30 seconds
   });
   const { data: warehouses, isLoading: warehousesLoading } = useQuery({
     queryKey: ['warehouses'],
-    queryFn: () => apiService.get<ApiResponse<Warehouse>>('/warehouses/'),
+    queryFn: () => apiService.get<ApiResponse<Warehouse>>('/api/v1/warehouses/'),
   });
 
   const { data: inventoryData, isLoading: inventoryLoading } = useQuery({
     queryKey: ['inventory', filters],
-    queryFn: () => apiService.get<ApiResponse<Inventory>>('/inventory/', { params: filters }),
+    queryFn: () => apiService.get<ApiResponse<Inventory>>('/api/v1/inventory/', { params: filters }),
   });
 
   const { data: stockMovements, isLoading: movementsLoading } = useQuery({
     queryKey: ['stock-movements', selectedWarehouse],
-    queryFn: () => apiService.get<ApiResponse<StockMovement>>('/stock-movements/', {
+    queryFn: () => apiService.get<ApiResponse<StockMovement>>('/api/v1/stock-movements/', {
       params: { warehouse_id: selectedWarehouse === 'all' ? undefined : selectedWarehouse }
     }),
     enabled: !!selectedWarehouse,
@@ -75,7 +75,7 @@ const InventoryPage: React.FC = () => {
   // Mutations
   const adjustStockMutation = useMutation({
     mutationFn: (data: { inventory_id: string; quantity: number; notes: string }) =>
-      apiService.post('/inventory/adjust/', data),
+      apiService.post('/api/v1/inventory/adjust/', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['inventory'] });
       queryClient.invalidateQueries({ queryKey: ['dashboard-summary'] });
@@ -97,7 +97,7 @@ const InventoryPage: React.FC = () => {
       product_id: string; 
       quantity: number; 
       notes: string 
-    }) => apiService.post('/inventory/transfer/', data),
+    }) => apiService.post('/api/v1/inventory/transfer/', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['inventory'] });
       queryClient.invalidateQueries({ queryKey: ['dashboard-summary'] });
@@ -131,7 +131,7 @@ const InventoryPage: React.FC = () => {
 
   const handleExportInventory = async () => {
     try {
-      const response = await apiService.get('/inventory/export/', {
+      const response = await apiService.get('/api/v1/inventory/export/', {
         params: filters,
         responseType: 'blob',
       });

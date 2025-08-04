@@ -30,17 +30,17 @@ const ReportsPage: React.FC = () => {
   // Queries
   const { data: dashboardData, isLoading: dashboardLoading } = useQuery({
     queryKey: ['dashboard-summary'],
-    queryFn: () => apiService.get<DashboardSummary>('/dashboard/summary/'),
+    queryFn: () => apiService.get<DashboardSummary>('/api/v1/dashboard/summary/'),
   });
 
   const { data: inventory, isLoading: inventoryLoading } = useQuery({
     queryKey: ['inventory'],
-    queryFn: () => apiService.get<ApiResponse<Inventory>>('/inventory/'),
+    queryFn: () => apiService.get<ApiResponse<Inventory>>('/api/v1/inventory/'),
   });
 
   const { data: warehouses, isLoading: warehousesLoading } = useQuery({
     queryKey: ['warehouses'],
-    queryFn: () => apiService.get<ApiResponse<Warehouse>>('/warehouses/'),
+    queryFn: () => apiService.get<ApiResponse<Warehouse>>('/api/v1/warehouses/'),
   });
 
   const handleExportReport = (type: string) => {

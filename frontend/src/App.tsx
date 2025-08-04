@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
@@ -13,6 +13,7 @@ import PurchaseOrdersPage from '@/pages/PurchaseOrdersPage';
 import StockAlertsPage from '@/pages/StockAlertsPage';
 import ReportsPage from '@/pages/ReportsPage';
 import Layout from '@/components/Layout';
+import { debugApiConfig } from '@/services/api';
 
 import './index.css';
 
@@ -85,6 +86,11 @@ const AppRoutes: React.FC = () => {
 
 // Main App Component
 const App: React.FC = () => {
+  useEffect(() => {
+    // Debug API configuration on app load
+    debugApiConfig();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>

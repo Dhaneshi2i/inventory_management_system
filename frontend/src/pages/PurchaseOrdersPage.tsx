@@ -47,22 +47,22 @@ const PurchaseOrdersPage: React.FC = () => {
   // Queries
   const { data: purchaseOrders, isLoading: ordersLoading } = useQuery({
     queryKey: ['purchase-orders', filters],
-    queryFn: () => apiService.get<ApiResponse<PurchaseOrder>>('/purchase-orders/', { params: filters }),
+    queryFn: () => apiService.get<ApiResponse<PurchaseOrder>>('/api/v1/purchase-orders/', { params: filters }),
   });
 
   const { data: suppliers, isLoading: suppliersLoading } = useQuery({
     queryKey: ['suppliers'],
-    queryFn: () => apiService.get<ApiResponse<Supplier>>('/suppliers/'),
+    queryFn: () => apiService.get<ApiResponse<Supplier>>('/api/v1/suppliers/'),
   });
 
   const { data: products } = useQuery({
     queryKey: ['products'],
-    queryFn: () => apiService.get<ApiResponse<Product>>('/products/'),
+    queryFn: () => apiService.get<ApiResponse<Product>>('/api/v1/products/'),
   });
 
   // Mutations
   const createPOMutation = useMutation({
-    mutationFn: (data: any) => apiService.post('/purchase-orders/', data),
+    mutationFn: (data: any) => apiService.post('/api/v1/purchase-orders/', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['purchase-orders'] });
       toast.success('Purchase order created successfully');
@@ -76,7 +76,7 @@ const PurchaseOrdersPage: React.FC = () => {
 
   const updatePOStatusMutation = useMutation({
     mutationFn: ({ id, status }: { id: string; status: string }) =>
-      apiService.patch(`/purchase-orders/${id}/`, { status }),
+      apiService.patch(`/api/v1/purchase-orders/${id}/`, { status }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['purchase-orders'] });
       toast.success('Purchase order status updated');
@@ -89,7 +89,7 @@ const PurchaseOrdersPage: React.FC = () => {
 
   const receiveItemsMutation = useMutation({
     mutationFn: (data: { po_id: string; items: Array<{ item_id: string; received_quantity: number }> }) =>
-      apiService.post(`/purchase-orders/${data.po_id}/receive/`, data),
+      apiService.post(`/api/v1/purchase-orders/${data.po_id}/receive/`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['purchase-orders'] });
       queryClient.invalidateQueries({ queryKey: ['inventory'] });

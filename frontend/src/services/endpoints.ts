@@ -28,7 +28,7 @@ export const apiEndpoints = {
   // Categories
   categories: {
     getAll: (params?: any) => apiService.get<ApiResponse<Category>>('/api/v1/categories/', { params }),
-    getById: (id: string) => apiService.get<Category>(`/api/v1/api/v1/categories/${id}/`),
+    getById: (id: string) => apiService.get<Category>(`/api/v1/categories/${id}/`),
     create: (data: Partial<Category>) => apiService.post<Category>('/api/v1/categories/', data),
     update: (id: string, data: Partial<Category>) => apiService.patch<Category>(`/api/v1/categories/${id}/`, data),
     delete: (id: string) => apiService.delete(`/api/v1/categories/${id}/`),

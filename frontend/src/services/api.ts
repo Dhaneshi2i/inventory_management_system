@@ -36,6 +36,12 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    
+    // Debug logging to show the full URL being requested
+    const fullUrl = (config.baseURL || '') + (config.url || '');
+    console.log('Making API request to:', fullUrl);
+    console.log('Request method:', config.method?.toUpperCase());
+    
     return config;
   },
   (error) => {
@@ -79,7 +85,7 @@ api.interceptors.response.use(
               try {
           const refreshToken = localStorage.getItem('refresh_token');
           if (refreshToken) {
-            const response = await axios.post('/api/token/refresh/', {
+            const response = await api.post('/api/token/refresh/', {
               refresh: refreshToken,
             });
             
@@ -108,7 +114,7 @@ export class ApiService {
   // Authentication
   async login(credentials: LoginCredentials): Promise<AuthTokens> {
     try {
-      const response = await axios.post('/api/token/', credentials);
+      const response = await api.post('/api/token/', credentials);
       const { access, refresh } = response.data;
       
       localStorage.setItem('access_token', access);
@@ -133,7 +139,7 @@ export class ApiService {
     }
     
     try {
-      const response = await axios.post('/api/token/refresh/', {
+      const response = await api.post('/api/token/refresh/', {
         refresh: refreshToken,
       });
       
@@ -289,6 +295,16 @@ export class ApiService {
 
 // Export singleton instance
 export const apiService = new ApiService();
+
+// Debug function to verify API configuration
+export const debugApiConfig = () => {
+  console.log('=== API Configuration Debug ===');
+  console.log('API_BASE_URL:', API_BASE_URL);
+  console.log('Environment variables:', import.meta.env);
+  console.log('Axios baseURL:', api.defaults.baseURL);
+  console.log('Full example URL:', API_BASE_URL + '/api/v1/products/');
+  console.log('==============================');
+};
 
 // Error handling utilities
 export const handleApiError = (error: any): ApiError => {

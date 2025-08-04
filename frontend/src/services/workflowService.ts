@@ -24,7 +24,7 @@ export class WorkflowService {
   ) {
     try {
       // Get current inventory
-      const currentInventory = await apiService.get<Inventory>(`/inventory/${inventoryId}/`);
+      const currentInventory = await apiService.get<Inventory>(`/api/v1/inventory/${inventoryId}/`);
       
       let newQuantity: number;
       switch (adjustmentType) {
@@ -42,13 +42,13 @@ export class WorkflowService {
       }
       
       // Update inventory
-      const updatedInventory = await apiService.patch<Inventory>(`/inventory/${inventoryId}/`, {
+      const updatedInventory = await apiService.patch<Inventory>(`/api/v1/inventory/${inventoryId}/`, {
         quantity: newQuantity,
         notes: notes
       });
       
       // Create stock movement record
-      await apiService.post<StockMovement>('/stock-movements/', {
+      await apiService.post<StockMovement>('/api/v1/stock-movements/', {
         inventory_id: inventoryId,
         movement_type: 'adjustment',
         quantity: Math.abs(newQuantity - currentInventory.quantity),
@@ -81,7 +81,7 @@ export class WorkflowService {
   ) {
     try {
       // Get source inventory
-      const sourceInventory = await apiService.get<{ results: Inventory[] }>(`/inventory/`, {
+      const sourceInventory = await apiService.get<{ results: Inventory[] }>(`/api/v1/inventory/`, {
         params: { warehouse_id: fromWarehouseId, product_id: productId }
       });
       
@@ -90,24 +90,24 @@ export class WorkflowService {
       }
       
       // Get destination inventory
-      const destInventory = await apiService.get<{ results: Inventory[] }>(`/inventory/`, {
+      const destInventory = await apiService.get<{ results: Inventory[] }>(`/api/v1/inventory/`, {
         params: { warehouse_id: toWarehouseId, product_id: productId }
       });
       
       // Update source inventory
       const sourceItem = sourceInventory.results[0];
-      await apiService.patch<Inventory>(`/inventory/${sourceItem.id}/`, {
+      await apiService.patch<Inventory>(`/api/v1/inventory/${sourceItem.id}/`, {
         quantity: sourceItem.quantity - quantity
       });
       
       // Update or create destination inventory
       if (destInventory.results.length) {
         const destItem = destInventory.results[0];
-        await apiService.patch<Inventory>(`/inventory/${destItem.id}/`, {
+        await apiService.patch<Inventory>(`/api/v1/inventory/${destItem.id}/`, {
           quantity: destItem.quantity + quantity
         });
       } else {
-        await apiService.post<Inventory>('/inventory/', {
+        await apiService.post<Inventory>('/api/v1/inventory/', {
           product_id: productId,
           warehouse_id: toWarehouseId,
           quantity: quantity,
@@ -117,7 +117,7 @@ export class WorkflowService {
       }
       
       // Create stock movement records
-      await apiService.post<StockMovement>('/stock-movements/', {
+      await apiService.post<StockMovement>('/api/v1/stock-movements/', {
         inventory_id: sourceItem.id,
         movement_type: 'transfer_out',
         quantity: quantity,
@@ -140,7 +140,7 @@ export class WorkflowService {
   static async processPurchaseOrder(purchaseOrderData: any) {
     try {
       // Create purchase order
-      const purchaseOrder = await apiService.post<PurchaseOrder>('/purchase-orders/', purchaseOrderData);
+      const purchaseOrder = await apiService.post<PurchaseOrder>('/api/v1/purchase-orders/', purchaseOrderData);
       
       // Send notification to approver
       await this.sendNotification('purchase_order_created', {
@@ -166,7 +166,7 @@ export class WorkflowService {
       const status = approved ? 'approved' : 'rejected';
       
       // Update purchase order status
-      const updatedPO = await apiService.patch<PurchaseOrder>(`/purchase-orders/${purchaseOrderId}/`, {
+      const updatedPO = await apiService.patch<PurchaseOrder>(`/api/v1/purchase-orders/${purchaseOrderId}/`, {
         status: status,
         approved_at: approved ? new Date().toISOString() : null,
         notes: notes
@@ -197,20 +197,20 @@ export class WorkflowService {
   ) {
     try {
       // Update purchase order with received quantities
-      await apiService.patch<PurchaseOrder>(`/purchase-orders/${purchaseOrderId}/`, {
+      await apiService.patch<PurchaseOrder>(`/api/v1/purchase-orders/${purchaseOrderId}/`, {
         received_items: receivedItems
       });
       
       // Update inventory for each received item
       for (const item of receivedItems) {
-        const inventory = await apiService.get<Inventory>(`/inventory/${item.item_id}/`);
+        const inventory = await apiService.get<Inventory>(`/api/v1/inventory/${item.item_id}/`);
         
-        await apiService.patch<Inventory>(`/inventory/${item.item_id}/`, {
+        await apiService.patch<Inventory>(`/api/v1/inventory/${item.item_id}/`, {
           quantity: inventory.quantity + item.received_quantity
         });
         
         // Create stock movement record
-        await apiService.post<StockMovement>('/stock-movements/', {
+        await apiService.post<StockMovement>('/api/v1/stock-movements/', {
           inventory_id: item.item_id,
           movement_type: 'in',
           quantity: item.received_quantity,
@@ -276,7 +276,7 @@ export class WorkflowService {
       
       // Create alerts
       for (const alertData of alerts) {
-        await apiService.post<StockAlert>('/alerts/', alertData);
+        await apiService.post<StockAlert>('/api/v1/stock-alerts/', alertData);
       }
       
     } catch (error) {
@@ -293,7 +293,7 @@ export class WorkflowService {
     resolutionNotes?: string
   ) {
     try {
-      const updatedAlert = await apiService.patch<StockAlert>(`/alerts/${alertId}/`, {
+      const updatedAlert = await apiService.patch<StockAlert>(`/api/v1/stock-alerts/${alertId}/`, {
         is_resolved: resolved,
         resolved_at: resolved ? new Date().toISOString() : null,
         resolution_notes: resolutionNotes
@@ -317,7 +317,7 @@ export class WorkflowService {
   static async generateReorderRecommendations() {
     try {
       // Get all low stock items
-      const lowStockItems = await apiService.get<{ results: Inventory[] }>('/inventory/', {
+      const lowStockItems = await apiService.get<{ results: Inventory[] }>('/api/v1/inventory/', {
         params: { is_low_stock: true }
       });
       
@@ -350,7 +350,7 @@ export class WorkflowService {
    */
   static async sendNotification(type: string, data: any) {
     try {
-      await apiService.post('/notifications/', {
+      await apiService.post('/api/v1/alert-notifications/', {
         type: type,
         data: data,
         created_at: new Date().toISOString()
@@ -365,7 +365,7 @@ export class WorkflowService {
    */
   static async generateInventoryReport(filters?: any) {
     try {
-      const inventory = await apiService.get<{ results: Inventory[] }>('/inventory/', { params: filters });
+      const inventory = await apiService.get<{ results: Inventory[] }>('/api/v1/inventory/', { params: filters });
       
       const report = {
         total_items: inventory.results.length,
@@ -391,8 +391,8 @@ export class WorkflowService {
    */
   static async analyzeSupplierPerformance(supplierId: string) {
     try {
-      const supplier = await apiService.get<Supplier>(`/suppliers/${supplierId}/`);
-      const purchaseOrders = await apiService.get<{ results: PurchaseOrder[] }>('/purchase-orders/', {
+      const supplier = await apiService.get<Supplier>(`/api/v1/suppliers/${supplierId}/`);
+      const purchaseOrders = await apiService.get<{ results: PurchaseOrder[] }>('/api/v1/purchase-orders/', {
         params: { supplier_id: supplierId }
       });
       
