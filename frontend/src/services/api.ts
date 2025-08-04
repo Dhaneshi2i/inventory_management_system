@@ -7,11 +7,22 @@ import {
 import { mockApiResponses } from './mockData';
 
 // API Configuration
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = 'https://dhaneshdev.pythonanywhere.com/';
+
+// Fallback and validation
+if (!API_BASE_URL) {
+  console.error('❌ VITE_API_BASE_URL is not set! Please configure this environment variable in Vercel.');
+  console.error('Expected format: https://your-api-server.com or http://localhost:8000');
+}
 
 // Debug logging to check the API URL
+console.log('=== API Configuration Debug ===');
 console.log('API_BASE_URL:', API_BASE_URL);
 console.log('Environment variables:', import.meta.env);
+console.log('VITE_API_BASE_URL from env:', import.meta.env.VITE_API_BASE_URL);
+console.log('Is API_BASE_URL defined?', !!API_BASE_URL);
+console.log('API_BASE_URL type:', typeof API_BASE_URL);
+console.log('================================');
 const RATE_LIMIT_CONFIG = {
   maxRetries: 3,
   retryDelay: 1000,
@@ -41,6 +52,8 @@ api.interceptors.request.use(
     const fullUrl = (config.baseURL || '') + (config.url || '');
     console.log('Making API request to:', fullUrl);
     console.log('Request method:', config.method?.toUpperCase());
+    console.log('Request headers:', config.headers);
+    console.log('Request data:', config.data);
     
     return config;
   },
@@ -53,6 +66,15 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error) => {
+    console.error('❌ API Request Failed:', {
+      url: error.config?.url,
+      method: error.config?.method,
+      status: error.response?.status,
+      statusText: error.response?.statusText,
+      data: error.response?.data,
+      headers: error.response?.headers
+    });
+    
     const originalRequest = error.config;
 
     // Handle rate limiting (429)
@@ -304,6 +326,27 @@ export const debugApiConfig = () => {
   console.log('Axios baseURL:', api.defaults.baseURL);
   console.log('Full example URL:', API_BASE_URL + '/api/v1/products/');
   console.log('==============================');
+  
+  // Test API connectivity
+  if (API_BASE_URL) {
+    console.log('🧪 Testing API connectivity...');
+    fetch(API_BASE_URL + '/api/v1/products/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then(response => {
+      console.log('✅ API test response:', response.status, response.statusText);
+      return response.json();
+    })
+    .then(data => {
+      console.log('✅ API test data:', data);
+    })
+    .catch(error => {
+      console.error('❌ API test failed:', error);
+    });
+  }
 };
 
 // Error handling utilities
