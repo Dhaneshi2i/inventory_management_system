@@ -38,7 +38,7 @@ const SupplierMetrics: React.FC<SupplierMetricsProps> = ({ suppliers }) => {
     {
       name: 'Total Value',
       value: `$${suppliers.reduce((sum, s) => {
-        const value = parseFloat(s.total_order_value.replace('$', '').replace(',', ''));
+        const value = parseFloat(s.total_order_value);
         return sum + (isNaN(value) ? 0 : value);
       }, 0).toLocaleString()}`,
       icon: CurrencyDollarIcon,

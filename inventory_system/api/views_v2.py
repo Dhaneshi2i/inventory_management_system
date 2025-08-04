@@ -5,7 +5,7 @@ from rest_framework import viewsets, status, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Sum, Count, Q, F
 from django.utils import timezone
@@ -103,7 +103,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'sku', 'description']
     ordering_fields = ['name', 'sku', 'unit_price', 'created_at']
     ordering = ['name']
-    parser_classes = [MultiPartParser, FormParser]
+    parser_classes = [MultiPartParser, FormParser, JSONParser]
 
     @extend_schema(
         summary="Get product inventory",

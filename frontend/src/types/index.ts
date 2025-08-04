@@ -293,6 +293,7 @@ export interface ApiError {
   detail?: string;
   error?: string;
   details?: Record<string, string[]>;
+  status?: number;
 }
 
 // Form types

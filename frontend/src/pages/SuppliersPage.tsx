@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   PlusIcon, 
   MagnifyingGlassIcon,
   ChartBarIcon,
   DocumentTextIcon
 } from '@heroicons/react/24/outline';
-import { toast } from 'react-hot-toast';
 
-import { apiService } from '@/services/api';
-import { Supplier, PurchaseOrder, ApiResponse } from '@/types';
+
+import { 
+  useSuppliers, 
+  useCreateSupplier, 
+  useUpdateSupplier, 
+  useDeleteSupplier 
+} from '@/hooks/useApi';
+import { Supplier } from '@/types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Modal from '@/components/Modal';
 
@@ -21,7 +25,6 @@ import SupplierMetrics from '@/components/suppliers/SupplierMetrics';
 import SupplierPerformanceChart from '@/components/suppliers/SupplierPerformanceChart';
 
 const SuppliersPage: React.FC = () => {
-  const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedView, setSelectedView] = useState<'list' | 'performance'>('list');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -32,60 +35,23 @@ const SuppliersPage: React.FC = () => {
   });
 
   // Queries
-  const { data: suppliers, isLoading: suppliersLoading, error: suppliersError } = useQuery({
-    queryKey: ['suppliers', filters],
-    queryFn: () => apiService.get<ApiResponse<Supplier>>('/suppliers/', { params: filters }),
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: 2,
-  });
-
-  const { isLoading: ordersLoading } = useQuery({
-    queryKey: ['purchase-orders'],
-    queryFn: () => apiService.get<ApiResponse<PurchaseOrder>>('/purchase-orders/'),
-    staleTime: 2 * 60 * 1000, // 2 minutes
-    retry: 2,
-  });
+  const { data: suppliers, isLoading: suppliersLoading, error: suppliersError } = useSuppliers(filters);
 
   // Mutations
-  const createSupplierMutation = useMutation({
-    mutationFn: (data: any) => apiService.post('/suppliers/', data),
+  const createSupplierMutation = useCreateSupplier({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['suppliers'] });
-      toast.success('Supplier created successfully');
       setIsCreateModalOpen(false);
-    },
-    onError: (error: any) => {
-      toast.error(error.detail || 'Failed to create supplier');
-      console.error('Create supplier error:', error);
     },
   });
 
-  const updateSupplierMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: any }) =>
-      apiService.patch(`/suppliers/${id}/`, data),
+  const updateSupplierMutation = useUpdateSupplier({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['suppliers'] });
-      toast.success('Supplier updated successfully');
       setIsDetailsModalOpen(false);
       setSelectedSupplier(null);
     },
-    onError: (error: any) => {
-      toast.error(error.detail || 'Failed to update supplier');
-      console.error('Update supplier error:', error);
-    },
   });
 
-  const deleteSupplierMutation = useMutation({
-    mutationFn: (id: string) => apiService.delete(`/suppliers/${id}/`),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['suppliers'] });
-      toast.success('Supplier deleted successfully');
-    },
-    onError: (error: any) => {
-      toast.error(error.detail || 'Failed to delete supplier');
-      console.error('Delete supplier error:', error);
-    },
-  });
+  const deleteSupplierMutation = useDeleteSupplier();
 
   // Handlers
   const handleCreateSupplier = () => {
@@ -113,7 +79,7 @@ const SuppliersPage: React.FC = () => {
     }
   };
 
-  if (suppliersLoading || ordersLoading) {
+  if (suppliersLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <LoadingSpinner size="lg" />
@@ -130,7 +96,7 @@ const SuppliersPage: React.FC = () => {
             {(suppliersError as any)?.detail || 'Failed to load supplier data. Please try again.'}
           </div>
           <button
-            onClick={() => queryClient.invalidateQueries({ queryKey: ['suppliers'] })}
+            onClick={() => window.location.reload()}
             className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             Retry

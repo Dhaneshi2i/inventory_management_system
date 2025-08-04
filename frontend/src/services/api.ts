@@ -1,103 +1,33 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { AuthTokens, LoginCredentials, ApiError } from '@/types';
+import { 
+  LoginCredentials, 
+  AuthTokens, 
+  ApiError
+} from '@/types';
 import { mockApiResponses } from './mockData';
 
 // API Configuration
-const API_BASE_URL = 'http://localhost:8000/api/v1';
-const AUTH_URL = 'http://localhost:8000/api/token/';
-const REFRESH_URL = 'http://localhost:8000/api/token/refresh';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/v1';
 
-// Development mode flag - set to true to use mock data in development
-const USE_MOCK_DATA = true; // Set to false to use real API
-
-// Rate limiting configuration
+// Debug logging to check the API URL
+console.log('API_BASE_URL:', API_BASE_URL);
+console.log('Environment variables:', import.meta.env);
 const RATE_LIMIT_CONFIG = {
   maxRetries: 3,
-  retryDelay: 1000, // 1 second
+  retryDelay: 1000,
   backoffMultiplier: 2,
 };
 
 // Create axios instance
 const api: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 15000, // Increased timeout
+  timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
-// Mock API service for development
-const mockApiService = {
-  async get<T>(url: string): Promise<T> {
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    const mockResponse = mockApiResponses[url as keyof typeof mockApiResponses];
-    if (mockResponse) {
-      return mockResponse as T;
-    }
-    
-    // Return empty results for unknown endpoints
-    return { results: [], count: 0 } as T;
-  },
 
-  async post<T>(_url: string, data?: any): Promise<T> {
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // Simulate successful creation
-    return { 
-      id: Date.now().toString(),
-      ...data,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    } as T;
-  },
-
-  async put<T>(_url: string, data?: any): Promise<T> {
-    await new Promise(resolve => setTimeout(resolve, 400));
-    
-    return { 
-      ...data,
-      updated_at: new Date().toISOString(),
-    } as T;
-  },
-
-  async patch<T>(_url: string, data?: any): Promise<T> {
-    await new Promise(resolve => setTimeout(resolve, 400));
-    
-    return { 
-      ...data,
-      updated_at: new Date().toISOString(),
-    } as T;
-  },
-
-  async delete<T>(_url: string): Promise<T> {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
-    return { success: true } as T;
-  },
-
-  async batch<T>(requests: Array<() => Promise<T>>): Promise<T[]> {
-    const results = await Promise.allSettled(requests.map(req => req()));
-    
-    const fulfilled: T[] = [];
-    const rejected: any[] = [];
-    
-    results.forEach((result, index) => {
-      if (result.status === 'fulfilled') {
-        fulfilled.push(result.value);
-      } else {
-        rejected.push({ index, error: result.reason });
-      }
-    });
-    
-    if (rejected.length > 0) {
-      console.warn('Some batch requests failed:', rejected);
-    }
-    
-    return fulfilled;
-  },
-};
 
 // Request interceptor to add auth token
 api.interceptors.request.use(
@@ -137,37 +67,35 @@ api.interceptors.response.use(
         console.error('Max retries reached for rate limiting');
         return Promise.reject({
           detail: 'Too many requests. Please try again later.',
-          error: 'RATE_LIMIT_EXCEEDED',
+          status: 429,
         });
       }
     }
 
-    // Handle authentication errors (401)
+    // Handle token refresh (401)
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-
-      try {
-        const refreshToken = localStorage.getItem('refresh_token');
-        if (!refreshToken) {
-          throw new Error('No refresh token available');
-        }
-
-        const response = await axios.post(REFRESH_URL, {
-          refresh: refreshToken,
-        });
-
-        const { access } = response.data;
-        localStorage.setItem('access_token', access);
-
-        // Retry the original request with new token
-        originalRequest.headers.Authorization = `Bearer ${access}`;
-        return api(originalRequest);
-      } catch (refreshError) {
-        // Refresh failed, redirect to login
+      
+              try {
+          const refreshToken = localStorage.getItem('refresh_token');
+          if (refreshToken) {
+            const response = await axios.post('/api/token/refresh/', {
+              refresh: refreshToken,
+            });
+            
+            const { access } = response.data;
+            localStorage.setItem('access_token', access);
+            
+            // Retry original request with new token
+            originalRequest.headers.Authorization = `Bearer ${access}`;
+            return api(originalRequest);
+          }
+        } catch (refreshError) {
+        console.error('Token refresh failed:', refreshError);
+        // Clear tokens and redirect to login
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         window.location.href = '/login';
-        return Promise.reject(refreshError);
       }
     }
 
@@ -175,276 +103,258 @@ api.interceptors.response.use(
   }
 );
 
-// Authentication service
-export const authService = {
+// API Service class
+export class ApiService {
+  // Authentication
   async login(credentials: LoginCredentials): Promise<AuthTokens> {
-    if (USE_MOCK_DATA) {
-      // Simulate successful login
-      const mockTokens = {
-        access: 'mock_access_token_' + Date.now(),
-        refresh: 'mock_refresh_token_' + Date.now(),
-      };
+    try {
+      const response = await axios.post('/api/token/', credentials);
+      const { access, refresh } = response.data;
       
-      localStorage.setItem('access_token', mockTokens.access);
-      localStorage.setItem('refresh_token', mockTokens.refresh);
+      localStorage.setItem('access_token', access);
+      localStorage.setItem('refresh_token', refresh);
       
-      return mockTokens;
+      return { access, refresh };
+    } catch (error) {
+      console.error('Login failed:', error);
+      throw error; // Don't fallback to mock for authentication
     }
-
-    const response = await axios.post(AUTH_URL, credentials);
-    const { access, refresh } = response.data;
-    
-    localStorage.setItem('access_token', access);
-    localStorage.setItem('refresh_token', refresh);
-    
-    return { access, refresh };
-  },
+  }
 
   async logout(): Promise<void> {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
-  },
+  }
 
   async refreshToken(): Promise<AuthTokens> {
     const refreshToken = localStorage.getItem('refresh_token');
     if (!refreshToken) {
       throw new Error('No refresh token available');
     }
-
-    if (USE_MOCK_DATA) {
-      const mockTokens = {
-        access: 'mock_access_token_' + Date.now(),
-        refresh: refreshToken,
-      };
-      
-      localStorage.setItem('access_token', mockTokens.access);
-      return mockTokens;
-    }
-
-    const response = await axios.post(REFRESH_URL, { refresh: refreshToken });
-    const { access } = response.data;
     
-    localStorage.setItem('access_token', access);
-    return { access, refresh: refreshToken };
-  },
+    try {
+      const response = await axios.post('/api/token/refresh/', {
+        refresh: refreshToken,
+      });
+      
+      const { access } = response.data;
+      localStorage.setItem('access_token', access);
+      
+      return { access, refresh: refreshToken };
+    } catch (error) {
+      console.error('Token refresh failed:', error);
+      throw error;
+    }
+  }
 
   isAuthenticated(): boolean {
     return !!localStorage.getItem('access_token');
-  },
+  }
 
   getToken(): string | null {
     return localStorage.getItem('access_token');
-  },
-};
+  }
 
-// Generic API service with enhanced error handling and mock data support
-export const apiService = {
-  // GET request with retry logic and mock data support
-  async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    if (USE_MOCK_DATA) {
-      return mockApiService.get<T>(url);
+  // Mock data fallback method
+  private getMockDataFallback(url: string): any {
+    // Check if we have mock data for this endpoint
+    const mockKey = Object.keys(mockApiResponses).find(key => {
+      // Remove query parameters for matching
+      const cleanUrl = url.split('?')[0];
+      return cleanUrl.includes(key);
+    });
+    
+    if (mockKey && mockKey in mockApiResponses) {
+      console.log(`Mock data fallback triggered for: ${url} -> ${mockKey}`);
+      let mockData = mockApiResponses[mockKey as keyof typeof mockApiResponses];
+      
+      // Apply filtering for stock alerts if needed
+      if (mockKey === '/stock-alerts/' && url.includes('?')) {
+        mockData = this.filterMockStockAlerts(mockData, url);
+      }
+      
+      return mockData;
     }
+    return null;
+  }
 
+  // Filter mock stock alerts based on query parameters
+  private filterMockStockAlerts(mockData: any, url: string): any {
+    const urlParams = new URLSearchParams(url.split('?')[1]);
+    const alertType = urlParams.get('alert_type');
+    const severity = urlParams.get('severity');
+    const isResolved = urlParams.get('is_resolved');
+    
+    let filteredResults = mockData.results;
+    
+    if (alertType && alertType !== '') {
+      filteredResults = filteredResults.filter((alert: any) => alert.alert_type === alertType);
+    }
+    
+    if (severity && severity !== '') {
+      filteredResults = filteredResults.filter((alert: any) => alert.severity === severity);
+    }
+    
+    if (isResolved !== null) {
+      const resolved = isResolved === 'true';
+      filteredResults = filteredResults.filter((alert: any) => alert.is_resolved === resolved);
+    }
+    
+    return {
+      ...mockData,
+      results: filteredResults,
+      count: filteredResults.length
+    };
+  }
+
+  // Generic API methods
+  async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
     try {
+      // Clean up empty parameters from query string
+      if (config?.params) {
+        const cleanParams: any = {};
+        Object.entries(config.params).forEach(([key, value]) => {
+          if (value !== '' && value !== null && value !== undefined) {
+            cleanParams[key] = value;
+          }
+        });
+        config.params = cleanParams;
+      }
+      
       const response = await api.get<T>(url, config);
       return response.data;
     } catch (error) {
+      console.error(`GET ${url} failed:`, error);
+      
+      // Fallback to mock data for specific endpoints
+      const mockData = this.getMockDataFallback(url);
+      if (mockData) {
+        console.log(`Using mock data for ${url}`);
+        return mockData as T;
+      }
+      
       throw handleApiError(error);
     }
-  },
+  }
 
-  // POST request with retry logic and mock data support
   async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    if (USE_MOCK_DATA) {
-      return mockApiService.post<T>(url, data);
-    }
-
     try {
       const response = await api.post<T>(url, data, config);
       return response.data;
     } catch (error) {
+      console.error(`POST ${url} failed:`, error);
       throw handleApiError(error);
     }
-  },
+  }
 
-  // PUT request with retry logic and mock data support
   async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    if (USE_MOCK_DATA) {
-      return mockApiService.put<T>(url, data);
-    }
-
     try {
       const response = await api.put<T>(url, data, config);
       return response.data;
     } catch (error) {
+      console.error(`PUT ${url} failed:`, error);
       throw handleApiError(error);
     }
-  },
+  }
 
-  // PATCH request with retry logic and mock data support
   async patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
-    if (USE_MOCK_DATA) {
-      return mockApiService.patch<T>(url, data);
-    }
-
     try {
       const response = await api.patch<T>(url, data, config);
       return response.data;
     } catch (error) {
+      console.error(`PATCH ${url} failed:`, error);
       throw handleApiError(error);
     }
-  },
+  }
 
-  // DELETE request with retry logic and mock data support
   async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-    if (USE_MOCK_DATA) {
-      return mockApiService.delete<T>(url);
-    }
-
     try {
       const response = await api.delete<T>(url, config);
       return response.data;
     } catch (error) {
+      console.error(`DELETE ${url} failed:`, error);
       throw handleApiError(error);
     }
-  },
+  }
 
-  // Batch request helper for multiple API calls
   async batch<T>(requests: Array<() => Promise<T>>): Promise<T[]> {
-    if (USE_MOCK_DATA) {
-      return mockApiService.batch<T>(requests);
-    }
-
     try {
-      const results = await Promise.allSettled(requests.map(req => req()));
-      
-      const fulfilled: T[] = [];
-      const rejected: any[] = [];
-      
-      results.forEach((result, index) => {
-        if (result.status === 'fulfilled') {
-          fulfilled.push(result.value);
-        } else {
-          rejected.push({ index, error: result.reason });
-        }
-      });
-      
-      if (rejected.length > 0) {
-        console.warn('Some batch requests failed:', rejected);
-      }
-      
-      return fulfilled;
+      return await Promise.all(requests.map(req => req()));
     } catch (error) {
+      console.error('Batch request failed:', error);
       throw handleApiError(error);
     }
-  },
-};
+  }
+}
 
-// Enhanced error handling utility
+// Export singleton instance
+export const apiService = new ApiService();
+
+// Error handling utilities
 export const handleApiError = (error: any): ApiError => {
-  if (axios.isAxiosError(error)) {
-    const status = error.response?.status;
-    const data = error.response?.data;
+  if (error.response) {
+    // Server responded with error status
+    const { status, data } = error.response;
     
-    // Handle specific HTTP status codes
-    switch (status) {
-      case 400:
-        return {
-          detail: data?.detail || 'Bad request. Please check your input.',
-          error: 'BAD_REQUEST',
-          details: data?.details,
-        };
-      case 401:
-        return {
-          detail: 'Authentication required. Please log in again.',
-          error: 'UNAUTHORIZED',
-        };
-      case 403:
-        return {
-          detail: 'Access denied. You do not have permission to perform this action.',
-          error: 'FORBIDDEN',
-        };
-      case 404:
-        return {
-          detail: 'Resource not found.',
-          error: 'NOT_FOUND',
-        };
-      case 429:
-        return {
-          detail: 'Too many requests. Please try again later.',
-          error: 'RATE_LIMIT_EXCEEDED',
-        };
-      case 500:
-        return {
-          detail: 'Internal server error. Please try again later.',
-          error: 'INTERNAL_SERVER_ERROR',
-        };
-      case 502:
-      case 503:
-      case 504:
-        return {
-          detail: 'Service temporarily unavailable. Please try again later.',
-          error: 'SERVICE_UNAVAILABLE',
-        };
-      default:
-        return {
-          detail: data?.detail || error.message || 'An unexpected error occurred',
-          error: data?.error || 'UNKNOWN_ERROR',
-          details: data?.details,
-        };
+    if (status === 400) {
+      return {
+        detail: data.detail || 'Bad request. Please check your input.',
+        details: data,
+        status,
+      };
+    } else if (status === 401) {
+      return {
+        detail: 'Authentication required. Please log in.',
+        status,
+      };
+    } else if (status === 403) {
+      return {
+        detail: 'You do not have permission to perform this action.',
+        status,
+      };
+    } else if (status === 404) {
+      return {
+        detail: 'The requested resource was not found.',
+        status,
+      };
+    } else if (status === 429) {
+      return {
+        detail: 'Too many requests. Please try again later.',
+        status,
+      };
+    } else if (status >= 500) {
+      return {
+        detail: 'Server error. Please try again later.',
+        status,
+      };
+    } else {
+      return {
+        detail: data.detail || 'An unexpected error occurred.',
+        details: data,
+        status,
+      };
     }
-  }
-  
-  // Handle network errors
-  if (error.code === 'NETWORK_ERROR' || error.message?.includes('Network Error')) {
+  } else if (error.request) {
+    // Request was made but no response received
     return {
-      detail: 'Network error. Please check your connection and try again.',
-      error: 'NETWORK_ERROR',
+      detail: 'Network error. Please check your connection.',
+      status: 0,
+    };
+  } else {
+    // Something else happened
+    return {
+      detail: error.message || 'An unexpected error occurred.',
+      status: 0,
     };
   }
-  
-  // Handle timeout errors
-  if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
-    return {
-      detail: 'Request timeout. Please try again.',
-      error: 'TIMEOUT',
-    };
-  }
-  
-  return {
-    detail: error.message || 'An unexpected error occurred',
-    error: 'UNKNOWN_ERROR',
-  };
 };
 
-// Utility function to check if error is retryable
 export const isRetryableError = (error: any): boolean => {
-  if (axios.isAxiosError(error)) {
-    const status = error.response?.status;
-    // Retry on 5xx errors, 429 (rate limit), and network errors
-    return (status && status >= 500) || status === 429 || !error.response;
-  }
-  return false;
+  const status = error.response?.status;
+  return status === 429 || status >= 500;
 };
 
-// Utility function to get error message for display
 export const getErrorMessage = (error: any): string => {
-  if (typeof error === 'string') {
-    return error;
-  }
-  
-  if (error?.detail) {
-    return error.detail;
-  }
-  
-  if (error?.message) {
-    return error.message;
-  }
-  
-  return 'An unexpected error occurred';
-};
-
-// Development mode indicator
-export const isDevelopmentMode = USE_MOCK_DATA;
-
-export default api; 
+  const apiError = handleApiError(error);
+  return apiError.detail || 'An error occurred';
+}; 

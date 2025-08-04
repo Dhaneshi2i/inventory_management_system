@@ -32,7 +32,7 @@ import StockMovementHistory from '@/components/inventory/StockMovementHistory';
 import WarehouseSelector from '@/components/inventory/WarehouseSelector';
 import LowStockAlerts from '@/components/inventory/LowStockAlerts';
 import InventoryMetrics from '@/components/inventory/InventoryMetrics';
-import api, { apiService } from '@/services/api';
+import { apiService } from '@/services/api';
 
 const InventoryPage: React.FC = () => {
   const queryClient = useQueryClient();
@@ -75,7 +75,7 @@ const InventoryPage: React.FC = () => {
   // Mutations
   const adjustStockMutation = useMutation({
     mutationFn: (data: { inventory_id: string; quantity: number; notes: string }) =>
-      api.post('/inventory/adjust/', data),
+      apiService.post('/inventory/adjust/', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['inventory'] });
       queryClient.invalidateQueries({ queryKey: ['dashboard-summary'] });
@@ -97,7 +97,7 @@ const InventoryPage: React.FC = () => {
       product_id: string; 
       quantity: number; 
       notes: string 
-    }) => api.post('/inventory/transfer/', data),
+    }) => apiService.post('/inventory/transfer/', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['inventory'] });
       queryClient.invalidateQueries({ queryKey: ['dashboard-summary'] });
@@ -131,12 +131,12 @@ const InventoryPage: React.FC = () => {
 
   const handleExportInventory = async () => {
     try {
-      const response = await api.get('/inventory/export/', {
+      const response = await apiService.get('/inventory/export/', {
         params: filters,
         responseType: 'blob',
       });
       
-      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const url = window.URL.createObjectURL(new Blob([response as any]));
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', `inventory-${new Date().toISOString().split('T')[0]}.csv`);

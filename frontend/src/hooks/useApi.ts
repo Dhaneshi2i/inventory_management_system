@@ -11,6 +11,8 @@ import {
   Supplier,
   PurchaseOrder,
   StockAlert,
+  AlertRule,
+  AlertNotification,
   DashboardSummary,
   ApiResponse,
   CreateProductForm,
@@ -297,8 +299,8 @@ export const useAdjustInventoryQuantity = (options?: UseMutationOptions<any, any
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: ({ id, quantity, movement_type, notes }: { id: string; quantity: number; movement_type: string; notes?: string }) => 
-      apiEndpoints.inventory.adjustQuantity(id, { quantity, movement_type, notes }),
+    mutationFn: ({ id, quantity, movement_type: _movement_type, notes }: { id: string; quantity: number; movement_type: string; notes?: string }) => 
+      apiEndpoints.inventory.adjust(id, { quantity, notes }),
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: ['inventory'] });
       queryClient.invalidateQueries({ queryKey: ['inventory', id] });
@@ -468,6 +470,38 @@ export const useResolveStockAlert = (options?: UseMutationOptions<any, any, { id
       toast.success('Stock alert resolved successfully');
     },
     onError: handleError,
+    ...options,
+  });
+};
+
+// Alert Rules
+export const useAlertRules = (params?: any, options?: UseQueryOptions<ApiResponse<AlertRule>>) => {
+  return useQuery({
+    queryKey: ['alert-rules', params],
+    queryFn: () => apiEndpoints.alertRules.getAll(params),
+    ...options,
+  });
+};
+
+export const useCreateAlertRule = (options?: UseMutationOptions<AlertRule, any, Partial<AlertRule>>) => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: (data: Partial<AlertRule>) => apiEndpoints.alertRules.create(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['alert-rules'] });
+      toast.success('Alert rule created successfully');
+    },
+    onError: handleError,
+    ...options,
+  });
+};
+
+// Alert Notifications
+export const useAlertNotifications = (params?: any, options?: UseQueryOptions<ApiResponse<AlertNotification>>) => {
+  return useQuery({
+    queryKey: ['alert-notifications', params],
+    queryFn: () => apiEndpoints.alertNotifications.getAll(params),
     ...options,
   });
 };

@@ -17,8 +17,14 @@ The frontend application has been successfully built and is ready for deployment
 4. The build will use the settings in `vercel.json`
 
 ### 2. Environment Variables
-Set the following environment variables in Vercel:
-- `VITE_API_BASE_URL`: Your backend API URL
+Create a `.env.local` file in the frontend directory with:
+```
+VITE_API_BASE_URL=http://localhost:8000/api/v1
+VITE_APP_NAME=Inventory Management System
+```
+
+For Vercel deployment, set these environment variables:
+- `VITE_API_BASE_URL`: Your backend API URL (e.g., https://your-backend.vercel.app/api/v1)
 - `VITE_APP_NAME`: Application name (optional)
 
 ### 3. Build Configuration

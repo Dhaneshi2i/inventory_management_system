@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   BellIcon,
   CogIcon,
@@ -8,8 +7,13 @@ import {
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
 
-import { apiService } from '@/services/api';
-import { StockAlert, AlertRule, AlertNotification, ApiResponse } from '@/types';
+import { 
+  useStockAlerts, 
+  useResolveStockAlert,
+  useAlertRules,
+  useAlertNotifications,
+  useCreateAlertRule
+} from '@/hooks/useApi';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Modal from '@/components/Modal';
 
@@ -20,56 +24,32 @@ import NotificationCenter from '@/components/alerts/NotificationCenter';
 import AlertMetrics from '@/components/alerts/AlertMetrics';
 
 const StockAlertsPage: React.FC = () => {
-  const queryClient = useQueryClient();
   const [selectedView, setSelectedView] = useState<'alerts' | 'rules' | 'notifications'>('alerts');
   const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
 
   const [filters, setFilters] = useState({
-    alert_type: 'all',
-    severity: 'all',
+    alert_type: '',
+    severity: '',
     is_resolved: false,
   });
 
   // Queries
-  const { data: alerts, isLoading: alertsLoading } = useQuery({
-    queryKey: ['alerts', filters],
-    queryFn: () => apiService.get<ApiResponse<StockAlert>>('/alerts/', { params: filters }),
-  });
+  const { data: alerts, isLoading: alertsLoading } = useStockAlerts(filters);
 
-  const { isLoading: rulesLoading } = useQuery({
-    queryKey: ['alert-rules'],
-    queryFn: () => apiService.get<ApiResponse<AlertRule>>('/alert-rules/'),
-  });
+  const { isLoading: rulesLoading } = useAlertRules();
 
-  const { data: notifications, isLoading: notificationsLoading } = useQuery({
-    queryKey: ['alert-notifications'],
-    queryFn: () => apiService.get<ApiResponse<AlertNotification>>('/alert-notifications/'),
-  });
+  const { data: notifications, isLoading: notificationsLoading } = useAlertNotifications();
 
   // Mutations
-  const resolveAlertMutation = useMutation({
-    mutationFn: ({ id, resolution_notes }: { id: string; resolution_notes: string }) =>
-      apiService.patch(`/alerts/${id}/`, { is_resolved: true, resolution_notes }),
+  const resolveAlertMutation = useResolveStockAlert({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['alerts'] });
       toast.success('Alert resolved successfully');
-    },
-    onError: (error) => {
-      toast.error('Failed to resolve alert');
-      console.error('Resolve alert error:', error);
     },
   });
 
-  const createAlertRuleMutation = useMutation({
-    mutationFn: (data: any) => apiService.post('/alert-rules/', data),
+  const createAlertRuleMutation = useCreateAlertRule({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['alert-rules'] });
-      toast.success('Alert rule created successfully');
       setIsConfigModalOpen(false);
-    },
-    onError: (error) => {
-      toast.error('Failed to create alert rule');
-      console.error('Create alert rule error:', error);
     },
   });
 
@@ -157,7 +137,7 @@ const StockAlertsPage: React.FC = () => {
                 onChange={(e) => setFilters(prev => ({ ...prev, alert_type: e.target.value }))}
                 className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option value="all">All Alert Types</option>
+                <option value="">All Alert Types</option>
                 <option value="low_stock">Low Stock</option>
                 <option value="out_of_stock">Out of Stock</option>
                 <option value="overstock">Overstock</option>
@@ -168,7 +148,7 @@ const StockAlertsPage: React.FC = () => {
                 onChange={(e) => setFilters(prev => ({ ...prev, severity: e.target.value }))}
                 className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option value="all">All Severities</option>
+                <option value="">All Severities</option>
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
                 <option value="high">High</option>

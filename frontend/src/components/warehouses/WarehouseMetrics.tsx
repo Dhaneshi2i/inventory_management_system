@@ -38,7 +38,7 @@ const WarehouseMetrics: React.FC<WarehouseMetricsProps> = ({ warehouses }) => {
     {
       name: 'Total Value',
       value: `$${warehouses.reduce((sum, w) => {
-        const value = parseFloat(w.total_inventory_value.replace('$', '').replace(',', ''));
+        const value = parseFloat(w.total_inventory_value);
         return sum + (isNaN(value) ? 0 : value);
       }, 0).toLocaleString()}`,
       icon: CurrencyDollarIcon,

@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   PlusIcon, 
   MagnifyingGlassIcon,
   ChartBarIcon,
   BuildingOfficeIcon
 } from '@heroicons/react/24/outline';
-import { toast } from 'react-hot-toast';
 
-import { apiService } from '@/services/api';
-import { Warehouse, Inventory, ApiResponse } from '@/types';
+
+import { 
+  useWarehouses, 
+  useCreateWarehouse, 
+  useUpdateWarehouse, 
+  useDeleteWarehouse 
+} from '@/hooks/useApi';
+import { Warehouse } from '@/types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Modal from '@/components/Modal';
 
@@ -21,7 +25,6 @@ import WarehouseMetrics from '@/components/warehouses/WarehouseMetrics';
 import CapacityUtilizationChart from '@/components/warehouses/CapacityUtilizationChart';
 
 const WarehousesPage: React.FC = () => {
-  const queryClient = useQueryClient();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedView, setSelectedView] = useState<'list' | 'analytics'>('list');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -32,60 +35,23 @@ const WarehousesPage: React.FC = () => {
   });
 
   // Queries
-  const { data: warehouses, isLoading: warehousesLoading, error: warehousesError } = useQuery({
-    queryKey: ['warehouses', filters],
-    queryFn: () => apiService.get<ApiResponse<Warehouse>>('/warehouses/', { params: filters }),
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: 2,
-  });
-
-  const { isLoading: inventoryLoading } = useQuery({
-    queryKey: ['inventory'],
-    queryFn: () => apiService.get<ApiResponse<Inventory>>('/inventory/'),
-    staleTime: 2 * 60 * 1000, // 2 minutes
-    retry: 2,
-  });
+  const { data: warehouses, isLoading: warehousesLoading, error: warehousesError } = useWarehouses(filters);
 
   // Mutations
-  const createWarehouseMutation = useMutation({
-    mutationFn: (data: any) => apiService.post('/warehouses/', data),
+  const createWarehouseMutation = useCreateWarehouse({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['warehouses'] });
-      toast.success('Warehouse created successfully');
       setIsCreateModalOpen(false);
-    },
-    onError: (error: any) => {
-      toast.error(error.detail || 'Failed to create warehouse');
-      console.error('Create warehouse error:', error);
     },
   });
 
-  const updateWarehouseMutation = useMutation({
-    mutationFn: ({ id, data }: { id: string; data: any }) =>
-      apiService.patch(`/warehouses/${id}/`, data),
+  const updateWarehouseMutation = useUpdateWarehouse({
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['warehouses'] });
-      toast.success('Warehouse updated successfully');
       setIsDetailsModalOpen(false);
       setSelectedWarehouse(null);
     },
-    onError: (error: any) => {
-      toast.error(error.detail || 'Failed to update warehouse');
-      console.error('Update warehouse error:', error);
-    },
   });
 
-  const deleteWarehouseMutation = useMutation({
-    mutationFn: (id: string) => apiService.delete(`/warehouses/${id}/`),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['warehouses'] });
-      toast.success('Warehouse deleted successfully');
-    },
-    onError: (error: any) => {
-      toast.error(error.detail || 'Failed to delete warehouse');
-      console.error('Delete warehouse error:', error);
-    },
-  });
+  const deleteWarehouseMutation = useDeleteWarehouse();
 
   // Handlers
   const handleCreateWarehouse = () => {
@@ -113,7 +79,7 @@ const WarehousesPage: React.FC = () => {
     }
   };
 
-  if (warehousesLoading || inventoryLoading) {
+  if (warehousesLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <LoadingSpinner size="lg" />
@@ -130,7 +96,7 @@ const WarehousesPage: React.FC = () => {
             {(warehousesError as any)?.detail || 'Failed to load warehouse data. Please try again.'}
           </div>
           <button
-            onClick={() => queryClient.invalidateQueries({ queryKey: ['warehouses'] })}
+            onClick={() => window.location.reload()}
             className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             Retry

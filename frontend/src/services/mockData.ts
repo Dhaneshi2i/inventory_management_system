@@ -7,7 +7,9 @@ import {
   Product, 
   Category,
   StockAlert,
-  StockMovement 
+  StockMovement,
+  AlertRule,
+  AlertNotification
 } from '@/types';
 
 // Mock data for development
@@ -276,6 +278,63 @@ export const mockStockAlerts: StockAlert[] = [
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   },
+  {
+    id: '2',
+    product: { id: '3', name: 'Keyboard', sku: 'KEY001' },
+    warehouse: { id: '1', name: 'Main Warehouse' },
+    alert_type: 'out_of_stock',
+    severity: 'high',
+    message: 'Keyboard is completely out of stock',
+    threshold_value: 10,
+    current_value: 0,
+    is_resolved: false,
+    resolved_at: null,
+    resolved_by: null,
+    resolution_notes: null,
+    is_active: true,
+    duration: 5,
+    severity_color: 'red',
+    created_at: new Date(Date.now() - 86400000 * 5).toISOString(),
+    updated_at: new Date(Date.now() - 86400000 * 5).toISOString(),
+  },
+  {
+    id: '3',
+    product: { id: '4', name: 'Monitor', sku: 'MON001' },
+    warehouse: { id: '2', name: 'Secondary Warehouse' },
+    alert_type: 'low_stock',
+    severity: 'low',
+    message: 'Monitor stock is approaching reorder point',
+    threshold_value: 15,
+    current_value: 18,
+    is_resolved: false,
+    resolved_at: null,
+    resolved_by: null,
+    resolution_notes: null,
+    is_active: true,
+    duration: 1,
+    severity_color: 'orange',
+    created_at: new Date(Date.now() - 86400000).toISOString(),
+    updated_at: new Date(Date.now() - 86400000).toISOString(),
+  },
+  {
+    id: '4',
+    product: { id: '5', name: 'USB Cable', sku: 'USB001' },
+    warehouse: { id: '1', name: 'Main Warehouse' },
+    alert_type: 'low_stock',
+    severity: 'medium',
+    message: 'USB Cable stock is below reorder point',
+    threshold_value: 50,
+    current_value: 30,
+    is_resolved: true,
+    resolved_at: new Date().toISOString(),
+    resolved_by: { id: 1, username: 'admin', email: 'admin@example.com', first_name: 'Admin', last_name: 'User', is_active: true, date_joined: new Date().toISOString() },
+    resolution_notes: 'Order placed with supplier',
+    is_active: false,
+    duration: 3,
+    severity_color: 'green',
+    created_at: new Date(Date.now() - 86400000 * 3).toISOString(),
+    updated_at: new Date().toISOString(),
+  },
 ];
 
 export const mockStockMovements: StockMovement[] = [
@@ -294,6 +353,64 @@ export const mockStockMovements: StockMovement[] = [
   },
 ];
 
+export const mockAlertRules: AlertRule[] = [
+  {
+    id: '1',
+    name: 'Low Stock Alert',
+    description: 'Alert when product stock falls below reorder point',
+    alert_type: 'low_stock',
+    severity: 'medium',
+    threshold_value: 25,
+    is_active: true,
+    notification_channels: ['email', 'dashboard'],
+    created_by: { id: 1, username: 'admin', email: 'admin@example.com', first_name: 'Admin', last_name: 'User', is_active: true, date_joined: new Date().toISOString() },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+  {
+    id: '2',
+    name: 'Out of Stock Alert',
+    description: 'Alert when product is completely out of stock',
+    alert_type: 'out_of_stock',
+    severity: 'high',
+    threshold_value: 0,
+    is_active: true,
+    notification_channels: ['email', 'dashboard', 'sms'],
+    created_by: { id: 1, username: 'admin', email: 'admin@example.com', first_name: 'Admin', last_name: 'User', is_active: true, date_joined: new Date().toISOString() },
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+];
+
+export const mockAlertNotifications: AlertNotification[] = [
+  {
+    id: '1',
+    alert: mockStockAlerts[0],
+    notification_type: 'email',
+    recipient: 'admin@example.com',
+    subject: 'Low Stock Alert: Mouse',
+    message: 'Mouse stock is below reorder point. Current stock: 15, Threshold: 25',
+    is_sent: true,
+    sent_at: new Date().toISOString(),
+    error_message: null,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+  {
+    id: '2',
+    alert: mockStockAlerts[1],
+    notification_type: 'dashboard',
+    recipient: 'dashboard',
+    subject: 'Out of Stock Alert: Keyboard',
+    message: 'Keyboard is completely out of stock. Please reorder immediately.',
+    is_sent: true,
+    sent_at: new Date().toISOString(),
+    error_message: null,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
+];
+
 // Mock API responses
 export const mockApiResponses = {
   '/dashboard/summary/': mockDashboardSummary,
@@ -303,6 +420,8 @@ export const mockApiResponses = {
   '/suppliers/': { results: mockSuppliers, count: mockSuppliers.length },
   '/inventory/': { results: mockInventory, count: mockInventory.length },
   '/purchase-orders/': { results: mockPurchaseOrders, count: mockPurchaseOrders.length },
-  '/alerts/': { results: mockStockAlerts, count: mockStockAlerts.length },
+  '/stock-alerts/': { results: mockStockAlerts, count: mockStockAlerts.length },
+  '/alert-rules/': { results: mockAlertRules, count: mockAlertRules.length },
+  '/alert-notifications/': { results: mockAlertNotifications, count: mockAlertNotifications.length },
   '/stock-movements/': { results: mockStockMovements, count: mockStockMovements.length },
 }; 

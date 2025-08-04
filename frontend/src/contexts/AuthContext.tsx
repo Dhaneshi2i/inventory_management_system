@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { authService } from '@/services/api';
+import { apiService } from '@/services/api';
 
 import { User } from '@/types';
 
@@ -28,7 +28,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        if (authService.isAuthenticated()) {
+        // Clear any mock tokens that might be present
+        const token = localStorage.getItem('access_token');
+        if (token && token.includes('mock_')) {
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          setUser(null);
+          setIsLoading(false);
+          return;
+        }
+
+        if (apiService.isAuthenticated()) {
           // Here you would typically fetch user data from the API
           // For now, we'll just set a basic user object
           setUser({
@@ -55,7 +65,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (username: string, password: string) => {
     try {
       setIsLoading(true);
-      await authService.login({ username, password });
+      
+      // Clear any existing tokens first
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      
+      await apiService.login({ username, password });
       
       // Set user data (in a real app, you'd fetch this from the API)
       setUser({
@@ -77,7 +92,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      await authService.logout();
+      await apiService.logout();
       setUser(null);
     } catch (error) {
       console.error('Logout failed:', error);
@@ -86,7 +101,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const refreshToken = async () => {
     try {
-      await authService.refreshToken();
+      await apiService.refreshToken();
     } catch (error) {
       console.error('Token refresh failed:', error);
       await logout();
