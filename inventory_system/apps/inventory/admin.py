@@ -106,11 +106,18 @@ class InventoryAdmin(admin.ModelAdmin):
             return format_html('<span style="color: green;">In Stock</span>')
     stock_status.short_description = 'Status'
 
+    # def stock_value(self, obj):
+    #     """Display stock value."""
+    #     value = obj.stock_value
+    #     return format_html('<span style="color: green;">${:.2f}</span>', value)
     def stock_value(self, obj):
         """Display stock value."""
-        value = obj.stock_value
-        return format_html('<span style="color: green;">${:.2f}</span>', value)
-    stock_value.short_description = 'Value'
+        try:
+            value = float(obj.stock_value) if obj.stock_value else 0
+            return format_html('<span style="color: green;">${:.2f}</span>', value)
+        except (ValueError, TypeError):
+            return format_html('<span style="color: gray;">N/A</span>')
+
 
     def get_queryset(self, request):
         """Optimize queryset with related data."""
