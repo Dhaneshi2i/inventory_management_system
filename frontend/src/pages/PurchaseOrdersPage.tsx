@@ -3,22 +3,19 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   PlusIcon, 
   MagnifyingGlassIcon,
-  FunnelIcon,
   DocumentTextIcon,
-  TruckIcon,
-  CheckCircleIcon,
-  ClockIcon,
-  ExclamationTriangleIcon
+  TruckIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
-import { motion } from 'framer-motion';
+
 
 import { apiService } from '@/services/api';
 import { 
   PurchaseOrder, 
   Supplier, 
   Product,
-  PurchaseOrderFilters 
+  PurchaseOrderFilters,
+  ApiResponse
 } from '@/types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Modal from '@/components/Modal';
@@ -50,17 +47,17 @@ const PurchaseOrdersPage: React.FC = () => {
   // Queries
   const { data: purchaseOrders, isLoading: ordersLoading } = useQuery({
     queryKey: ['purchase-orders', filters],
-    queryFn: () => apiService.get<PurchaseOrder[]>('/purchase-orders/', { params: filters }),
+    queryFn: () => apiService.get<ApiResponse<PurchaseOrder>>('/purchase-orders/', { params: filters }),
   });
 
   const { data: suppliers, isLoading: suppliersLoading } = useQuery({
     queryKey: ['suppliers'],
-    queryFn: () => apiService.get<Supplier[]>('/suppliers/'),
+    queryFn: () => apiService.get<ApiResponse<Supplier>>('/suppliers/'),
   });
 
-  const { data: products, isLoading: productsLoading } = useQuery({
+  const { data: products } = useQuery({
     queryKey: ['products'],
-    queryFn: () => apiService.get<Product[]>('/products/'),
+    queryFn: () => apiService.get<ApiResponse<Product>>('/products/'),
   });
 
   // Mutations

@@ -28,7 +28,7 @@ const api: AxiosInstance = axios.create({
 
 // Mock API service for development
 const mockApiService = {
-  async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  async get<T>(url: string): Promise<T> {
     // Simulate network delay
     await new Promise(resolve => setTimeout(resolve, 300));
     
@@ -41,7 +41,7 @@ const mockApiService = {
     return { results: [], count: 0 } as T;
   },
 
-  async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  async post<T>(_url: string, data?: any): Promise<T> {
     await new Promise(resolve => setTimeout(resolve, 500));
     
     // Simulate successful creation
@@ -53,7 +53,7 @@ const mockApiService = {
     } as T;
   },
 
-  async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  async put<T>(_url: string, data?: any): Promise<T> {
     await new Promise(resolve => setTimeout(resolve, 400));
     
     return { 
@@ -62,7 +62,7 @@ const mockApiService = {
     } as T;
   },
 
-  async patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  async patch<T>(_url: string, data?: any): Promise<T> {
     await new Promise(resolve => setTimeout(resolve, 400));
     
     return { 
@@ -71,7 +71,7 @@ const mockApiService = {
     } as T;
   },
 
-  async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
+  async delete<T>(_url: string): Promise<T> {
     await new Promise(resolve => setTimeout(resolve, 300));
     
     return { success: true } as T;
@@ -242,7 +242,7 @@ export const apiService = {
   // GET request with retry logic and mock data support
   async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
     if (USE_MOCK_DATA) {
-      return mockApiService.get<T>(url, config);
+      return mockApiService.get<T>(url);
     }
 
     try {
@@ -256,7 +256,7 @@ export const apiService = {
   // POST request with retry logic and mock data support
   async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     if (USE_MOCK_DATA) {
-      return mockApiService.post<T>(url, data, config);
+      return mockApiService.post<T>(url, data);
     }
 
     try {
@@ -270,7 +270,7 @@ export const apiService = {
   // PUT request with retry logic and mock data support
   async put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     if (USE_MOCK_DATA) {
-      return mockApiService.put<T>(url, data, config);
+      return mockApiService.put<T>(url, data);
     }
 
     try {
@@ -284,7 +284,7 @@ export const apiService = {
   // PATCH request with retry logic and mock data support
   async patch<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
     if (USE_MOCK_DATA) {
-      return mockApiService.patch<T>(url, data, config);
+      return mockApiService.patch<T>(url, data);
     }
 
     try {
@@ -298,7 +298,7 @@ export const apiService = {
   // DELETE request with retry logic and mock data support
   async delete<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
     if (USE_MOCK_DATA) {
-      return mockApiService.delete<T>(url, config);
+      return mockApiService.delete<T>(url);
     }
 
     try {

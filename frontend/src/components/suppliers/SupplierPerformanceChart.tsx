@@ -6,7 +6,7 @@ interface SupplierPerformanceChartProps {
 }
 
 const SupplierPerformanceChart: React.FC<SupplierPerformanceChartProps> = ({
-  suppliers,
+  suppliers: _suppliers,
 }) => {
   return (
     <div className="h-64 flex items-center justify-center">

@@ -6,7 +6,7 @@ interface TopProductsChartProps {
 }
 
 const TopProductsChart: React.FC<TopProductsChartProps> = ({
-  inventory,
+  inventory: _inventory,
 }) => {
   return (
     <div className="h-64 flex items-center justify-center">

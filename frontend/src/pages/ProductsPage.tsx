@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { PlusIcon, PencilIcon, TrashIcon, EyeIcon, ArrowDownTrayIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline';
+import { PlusIcon, PencilIcon, TrashIcon, ArrowDownTrayIcon, ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import { useProducts, useCategories, useCreateProduct, useUpdateProduct, useDeleteProduct } from '@/hooks/useApi';
-import { Product, Category } from '@/types';
+import { Product } from '@/types';
 import DataTable from '@/components/DataTable';
 import Modal from '@/components/Modal';
 import ConfirmationDialog from '@/components/ConfirmationDialog';
@@ -39,10 +39,10 @@ const ProductsPage: React.FC = () => {
     reset,
     formState: { errors },
     setValue,
-    watch,
+
   } = useForm<ProductFormData>();
 
-  const watchedCategoryId = watch('category_id');
+
 
   // Generate SKU based on category and name
   const generateSKU = (name: string, categoryId: string) => {
@@ -158,14 +158,12 @@ const ProductsPage: React.FC = () => {
       key: 'name',
       label: 'Product',
       sortable: true,
-      render: (value: string, product: Product) => (
+      render: (_value: string, product: Product) => (
         <div className="flex items-center">
-          <div className="flex-shrink-0 h-10 w-10">
-            <img
-              className="h-10 w-10 rounded-lg object-cover"
-              src={product.image || '/placeholder-product.png'}
-              alt={product.name}
-            />
+          <div className="flex-shrink-0 h-10 w-10 bg-gray-200 rounded-lg flex items-center justify-center">
+            <span className="text-gray-500 text-xs font-medium">
+              {product.name.charAt(0).toUpperCase()}
+            </span>
           </div>
           <div className="ml-4">
             <div className="text-sm font-medium text-gray-900">{product.name}</div>
@@ -556,7 +554,7 @@ const ProductsPage: React.FC = () => {
           </div>
 
           <ImageUpload
-            value={selectedImage || selectedProduct?.image}
+            value={selectedImage}
             onChange={setSelectedImage}
             label="Product Image"
             maxSize={5}

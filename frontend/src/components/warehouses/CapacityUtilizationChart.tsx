@@ -6,7 +6,7 @@ interface CapacityUtilizationChartProps {
 }
 
 const CapacityUtilizationChart: React.FC<CapacityUtilizationChartProps> = ({
-  warehouses,
+  warehouses: _warehouses,
 }) => {
   return (
     <div className="h-64 flex items-center justify-center">

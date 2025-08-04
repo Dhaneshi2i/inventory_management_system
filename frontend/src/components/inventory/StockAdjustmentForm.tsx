@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { motion } from 'framer-motion';
+
 import { 
   ExclamationTriangleIcon,
   CheckCircleIcon,
@@ -44,7 +44,7 @@ const StockAdjustmentForm: React.FC<StockAdjustmentFormProps> = ({
   });
 
   const watchedQuantity = watch('quantity');
-  const watchedNotes = watch('notes');
+
 
   const calculateNewQuantity = () => {
     const quantity = watchedQuantity || 0;

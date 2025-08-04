@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { BuildingOfficeIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import { Warehouse } from '@/types';
-import { LoadingSpinner } from '@/components/LoadingSpinner';
+
 
 interface WarehouseSelectorProps {
   warehouses: Warehouse[];
@@ -17,7 +17,7 @@ const WarehouseSelector: React.FC<WarehouseSelectorProps> = ({
   onWarehouseChange,
   loading,
 }) => {
-  const selectedWarehouseData = warehouses?.data?.results?.find(w => w.id === selectedWarehouse);
+  const selectedWarehouseData = warehouses?.find(w => w.id === selectedWarehouse);
 
   if (loading) {
     return (
@@ -46,7 +46,7 @@ const WarehouseSelector: React.FC<WarehouseSelectorProps> = ({
               className="appearance-none bg-white border border-gray-300 rounded-md px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="all">All Warehouses</option>
-              {warehouses?.data?.results?.map((warehouse) => (
+              {warehouses?.map((warehouse) => (
                 <option key={warehouse.id} value={warehouse.id}>
                   {warehouse.name}
                 </option>
@@ -104,7 +104,7 @@ const WarehouseSelector: React.FC<WarehouseSelectorProps> = ({
             </div>
           </motion.button>
 
-          {warehouses?.data?.results?.slice(0, 3).map((warehouse) => (
+          {warehouses?.slice(0, 3).map((warehouse) => (
             <motion.button
               key={warehouse.id}
               onClick={() => onWarehouseChange(warehouse.id)}

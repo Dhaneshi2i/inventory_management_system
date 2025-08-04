@@ -3,19 +3,13 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   PlusIcon, 
   MagnifyingGlassIcon,
-  MapPinIcon,
-  BuildingOfficeIcon,
-  UserIcon,
-  PhoneIcon,
-  EnvelopeIcon,
   ChartBarIcon,
-  CogIcon
+  BuildingOfficeIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
-import { motion } from 'framer-motion';
 
 import { apiService } from '@/services/api';
-import { Warehouse, Inventory } from '@/types';
+import { Warehouse, Inventory, ApiResponse } from '@/types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Modal from '@/components/Modal';
 
@@ -40,14 +34,14 @@ const WarehousesPage: React.FC = () => {
   // Queries
   const { data: warehouses, isLoading: warehousesLoading, error: warehousesError } = useQuery({
     queryKey: ['warehouses', filters],
-    queryFn: () => apiService.get<Warehouse[]>('/warehouses/', { params: filters }),
+    queryFn: () => apiService.get<ApiResponse<Warehouse>>('/warehouses/', { params: filters }),
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: 2,
   });
 
-  const { data: inventory, isLoading: inventoryLoading } = useQuery({
+  const { isLoading: inventoryLoading } = useQuery({
     queryKey: ['inventory'],
-    queryFn: () => apiService.get<Inventory[]>('/inventory/'),
+    queryFn: () => apiService.get<ApiResponse<Inventory>>('/inventory/'),
     staleTime: 2 * 60 * 1000, // 2 minutes
     retry: 2,
   });
@@ -133,7 +127,7 @@ const WarehousesPage: React.FC = () => {
         <div className="text-center">
           <div className="text-red-500 text-lg font-medium mb-2">Error Loading Warehouses</div>
           <div className="text-gray-500 text-sm">
-            {warehousesError.detail || 'Failed to load warehouse data. Please try again.'}
+            {(warehousesError as any)?.detail || 'Failed to load warehouse data. Please try again.'}
           </div>
           <button
             onClick={() => queryClient.invalidateQueries({ queryKey: ['warehouses'] })}
@@ -236,6 +230,7 @@ const WarehousesPage: React.FC = () => {
             warehouses={warehouses?.results || []}
             loading={warehousesLoading}
             onViewWarehouse={handleViewWarehouse}
+            onEditWarehouse={handleViewWarehouse}
             onDeleteWarehouse={handleDeleteWarehouse}
             searchTerm={searchTerm}
           />
@@ -246,7 +241,6 @@ const WarehousesPage: React.FC = () => {
         <div className="space-y-6">
           <CapacityUtilizationChart 
             warehouses={warehouses?.results || []}
-            inventory={inventory?.results || []}
           />
         </div>
       )}
@@ -276,9 +270,7 @@ const WarehousesPage: React.FC = () => {
         {selectedWarehouse && (
           <WarehouseDetails
             warehouse={selectedWarehouse}
-            onUpdate={handleUpdateWarehouse}
-            onDelete={() => handleDeleteWarehouse(selectedWarehouse.id)}
-            loading={updateWarehouseMutation.isPending}
+            onEdit={handleUpdateWarehouse}
           />
         )}
       </Modal>

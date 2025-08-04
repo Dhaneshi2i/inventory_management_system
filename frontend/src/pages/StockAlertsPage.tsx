@@ -3,18 +3,14 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   BellIcon,
   ExclamationTriangleIcon,
-  CheckCircleIcon,
-  XCircleIcon,
   CogIcon,
   EyeIcon,
-  ClockIcon,
   PlusIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
-import { motion } from 'framer-motion';
 
 import { apiService } from '@/services/api';
-import { StockAlert, AlertRule, AlertNotification } from '@/types';
+import { StockAlert, AlertRule, AlertNotification, ApiResponse } from '@/types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Modal from '@/components/Modal';
 
@@ -28,7 +24,7 @@ const StockAlertsPage: React.FC = () => {
   const queryClient = useQueryClient();
   const [selectedView, setSelectedView] = useState<'alerts' | 'rules' | 'notifications'>('alerts');
   const [isConfigModalOpen, setIsConfigModalOpen] = useState(false);
-  const [selectedAlert, setSelectedAlert] = useState<StockAlert | null>(null);
+
   const [filters, setFilters] = useState({
     alert_type: 'all',
     severity: 'all',
@@ -38,17 +34,17 @@ const StockAlertsPage: React.FC = () => {
   // Queries
   const { data: alerts, isLoading: alertsLoading } = useQuery({
     queryKey: ['alerts', filters],
-    queryFn: () => apiService.get<StockAlert[]>('/alerts/', { params: filters }),
+    queryFn: () => apiService.get<ApiResponse<StockAlert>>('/alerts/', { params: filters }),
   });
 
-  const { data: alertRules, isLoading: rulesLoading } = useQuery({
+  const { isLoading: rulesLoading } = useQuery({
     queryKey: ['alert-rules'],
-    queryFn: () => apiService.get<AlertRule[]>('/alert-rules/'),
+    queryFn: () => apiService.get<ApiResponse<AlertRule>>('/alert-rules/'),
   });
 
   const { data: notifications, isLoading: notificationsLoading } = useQuery({
     queryKey: ['alert-notifications'],
-    queryFn: () => apiService.get<AlertNotification[]>('/alert-notifications/'),
+    queryFn: () => apiService.get<ApiResponse<AlertNotification>>('/alert-notifications/'),
   });
 
   // Mutations

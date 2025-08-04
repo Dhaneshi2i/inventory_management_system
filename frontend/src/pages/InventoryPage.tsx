@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
-  PlusIcon, 
   ArrowPathIcon, 
-  ExclamationTriangleIcon,
-  ChartBarIcon,
-  CubeIcon,
   TruckIcon,
   DocumentArrowDownIcon,
   PrinterIcon,
   QrCodeIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
-import { motion } from 'framer-motion';
+
 
 // import { api } from '@/services/api';
 import { 
@@ -20,12 +16,12 @@ import {
   Warehouse, 
   StockMovement, 
   DashboardSummary,
-  InventoryFilters 
+  InventoryFilters,
+  ApiResponse
 } from '@/types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Modal from '@/components/Modal';
-import DataTable from '@/components/DataTable';
-import ConfirmationDialog from '@/components/ConfirmationDialog';
+
 
 // Components
 import InventoryDashboard from '@/components/inventory/InventoryDashboard';
@@ -61,17 +57,17 @@ const InventoryPage: React.FC = () => {
   });
   const { data: warehouses, isLoading: warehousesLoading } = useQuery({
     queryKey: ['warehouses'],
-    queryFn: () => apiService.get<Warehouse[]>('/warehouses/'),
+    queryFn: () => apiService.get<ApiResponse<Warehouse>>('/warehouses/'),
   });
 
   const { data: inventoryData, isLoading: inventoryLoading } = useQuery({
     queryKey: ['inventory', filters],
-    queryFn: () => apiService.get<Inventory[]>('/inventory/', { params: filters }),
+    queryFn: () => apiService.get<ApiResponse<Inventory>>('/inventory/', { params: filters }),
   });
 
   const { data: stockMovements, isLoading: movementsLoading } = useQuery({
     queryKey: ['stock-movements', selectedWarehouse],
-    queryFn: () => apiService.get<StockMovement[]>('/stock-movements/', {
+    queryFn: () => apiService.get<ApiResponse<StockMovement>>('/stock-movements/', {
       params: { warehouse_id: selectedWarehouse === 'all' ? undefined : selectedWarehouse }
     }),
     enabled: !!selectedWarehouse,
@@ -163,7 +159,7 @@ const InventoryPage: React.FC = () => {
 
   const handleBarcodeScan = () => {
     // Simulate barcode scanning
-    toast.info('Barcode scanner activated. Please scan a product.');
+    toast('Barcode scanner activated. Please scan a product.');
   };
 
   if (dashboardLoading || warehousesLoading) {
@@ -229,7 +225,7 @@ const InventoryPage: React.FC = () => {
 
       {/* Warehouse Selector */}
       <WarehouseSelector
-        warehouses={warehouses || []}
+        warehouses={warehouses?.results || []}
         selectedWarehouse={selectedWarehouse}
         onWarehouseChange={setSelectedWarehouse}
         loading={warehousesLoading}
@@ -247,13 +243,11 @@ const InventoryPage: React.FC = () => {
             inventory={inventoryData?.results || []}
             loading={inventoryLoading}
             onStockAdjustment={handleStockAdjustment}
-            filters={filters}
-            onFiltersChange={setFilters}
           />
 
           {/* Stock Movement History */}
           <StockMovementHistory
-            movements={stockMovements || []}
+            movements={stockMovements?.results || []}
             loading={movementsLoading}
             warehouseId={selectedWarehouse}
           />
@@ -270,7 +264,7 @@ const InventoryPage: React.FC = () => {
           {/* Inventory Charts */}
           <InventoryChart
             inventory={inventoryData?.results || []}
-            warehouses={warehouses || []}
+            warehouses={warehouses?.results || []}
             loading={inventoryLoading}
           />
         </div>
@@ -302,7 +296,7 @@ const InventoryPage: React.FC = () => {
         size="lg"
       >
         <StockTransferForm
-          warehouses={warehouses}
+          warehouses={warehouses?.results || []}
           inventory={inventoryData?.results || []}
           onSubmit={(data) => transferStockMutation.mutate(data)}
           loading={transferStockMutation.isPending}

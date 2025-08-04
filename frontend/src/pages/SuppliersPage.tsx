@@ -3,19 +3,13 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { 
   PlusIcon, 
   MagnifyingGlassIcon,
-  BuildingOfficeIcon,
-  UserIcon,
-  PhoneIcon,
-  EnvelopeIcon,
-  GlobeAltIcon,
   ChartBarIcon,
   DocumentTextIcon
 } from '@heroicons/react/24/outline';
 import { toast } from 'react-hot-toast';
-import { motion } from 'framer-motion';
 
 import { apiService } from '@/services/api';
-import { Supplier, PurchaseOrder } from '@/types';
+import { Supplier, PurchaseOrder, ApiResponse } from '@/types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import Modal from '@/components/Modal';
 
@@ -40,14 +34,14 @@ const SuppliersPage: React.FC = () => {
   // Queries
   const { data: suppliers, isLoading: suppliersLoading, error: suppliersError } = useQuery({
     queryKey: ['suppliers', filters],
-    queryFn: () => apiService.get<Supplier[]>('/suppliers/', { params: filters }),
+    queryFn: () => apiService.get<ApiResponse<Supplier>>('/suppliers/', { params: filters }),
     staleTime: 5 * 60 * 1000, // 5 minutes
     retry: 2,
   });
 
-  const { data: purchaseOrders, isLoading: ordersLoading } = useQuery({
+  const { isLoading: ordersLoading } = useQuery({
     queryKey: ['purchase-orders'],
-    queryFn: () => apiService.get<PurchaseOrder[]>('/purchase-orders/'),
+    queryFn: () => apiService.get<ApiResponse<PurchaseOrder>>('/purchase-orders/'),
     staleTime: 2 * 60 * 1000, // 2 minutes
     retry: 2,
   });
@@ -133,7 +127,7 @@ const SuppliersPage: React.FC = () => {
         <div className="text-center">
           <div className="text-red-500 text-lg font-medium mb-2">Error Loading Suppliers</div>
           <div className="text-gray-500 text-sm">
-            {suppliersError.detail || 'Failed to load supplier data. Please try again.'}
+            {(suppliersError as any)?.detail || 'Failed to load supplier data. Please try again.'}
           </div>
           <button
             onClick={() => queryClient.invalidateQueries({ queryKey: ['suppliers'] })}
@@ -236,6 +230,7 @@ const SuppliersPage: React.FC = () => {
             suppliers={suppliers?.results || []}
             loading={suppliersLoading}
             onViewSupplier={handleViewSupplier}
+            onEditSupplier={handleViewSupplier}
             onDeleteSupplier={handleDeleteSupplier}
             searchTerm={searchTerm}
           />
@@ -246,7 +241,6 @@ const SuppliersPage: React.FC = () => {
         <div className="space-y-6">
           <SupplierPerformanceChart 
             suppliers={suppliers?.results || []}
-            purchaseOrders={purchaseOrders?.results || []}
           />
         </div>
       )}
@@ -276,9 +270,7 @@ const SuppliersPage: React.FC = () => {
         {selectedSupplier && (
           <SupplierDetails
             supplier={selectedSupplier}
-            onUpdate={handleUpdateSupplier}
-            onDelete={() => handleDeleteSupplier(selectedSupplier.id)}
-            loading={updateSupplierMutation.isPending}
+            onEdit={handleUpdateSupplier}
           />
         )}
       </Modal>

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { authService, AuthTokens } from '@/services/api';
+import { authService } from '@/services/api';
+
 import { User } from '@/types';
 
 interface AuthContextType {
@@ -54,7 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (username: string, password: string) => {
     try {
       setIsLoading(true);
-      const tokens: AuthTokens = await authService.login({ username, password });
+      await authService.login({ username, password });
       
       // Set user data (in a real app, you'd fetch this from the API)
       setUser({

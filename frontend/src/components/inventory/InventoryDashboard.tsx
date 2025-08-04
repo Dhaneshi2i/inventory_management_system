@@ -1,34 +1,25 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { 
   MagnifyingGlassIcon, 
-  FunnelIcon, 
-  PlusIcon,
   ExclamationTriangleIcon,
   XCircleIcon,
   CheckCircleIcon,
   PencilIcon
 } from '@heroicons/react/24/outline';
-import { Inventory, InventoryFilters } from '@/types';
+import { Inventory } from '@/types';
 import LoadingSpinner from '../LoadingSpinner';
 import DataTable from '../DataTable';
-import { de } from 'date-fns/locale';
-// import { DataTable } from '@/components/DataTable';
 
 interface InventoryDashboardProps {
   inventory: Inventory[];
   loading: boolean;
   onStockAdjustment: (inventory: Inventory) => void;
-  filters: InventoryFilters;
-  onFiltersChange: (filters: InventoryFilters) => void;
 }
 
 const InventoryDashboard: React.FC<InventoryDashboardProps> = ({
   inventory,
   loading,
   onStockAdjustment,
-  filters,
-  onFiltersChange,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showLowStock, setShowLowStock] = useState(false);
@@ -77,7 +68,7 @@ const InventoryDashboard: React.FC<InventoryDashboardProps> = ({
     {
       key: 'product',
       label: 'Product',
-      render: (value: any, item: Inventory) => (
+      render: (_value: any, item: Inventory) => (
         <div>
           <div className="font-medium text-gray-900">{item.product.name}</div>
           <div className="text-sm text-gray-500">SKU: {item.product.sku}</div>
@@ -87,14 +78,14 @@ const InventoryDashboard: React.FC<InventoryDashboardProps> = ({
     {
       key: 'warehouse',
       label: 'Warehouse',
-      render: (value: any, item: Inventory) => (
+      render: (_value: any, item: Inventory) => (
         <div className="text-sm text-gray-900">{item.warehouse.name}</div>
       ),
     },
     {
       key: 'quantity',
       label: 'Quantity',
-      render: (value: any, item: Inventory) => (
+      render: (_value: any, item: Inventory) => (
         <div className="text-right">
           <div className="font-medium text-gray-900">{item.quantity}</div>
           <div className="text-xs text-gray-500">
@@ -106,7 +97,7 @@ const InventoryDashboard: React.FC<InventoryDashboardProps> = ({
     {
       key: 'stock_status',
       label: 'Status',
-      render: (value: any, item: Inventory) => (
+      render: (_value: any, item: Inventory) => (
         <div className="flex items-center">
           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStockStatusColor(item.stock_status)}`}>
             {getStockStatusIcon(item.stock_status)}
@@ -118,7 +109,7 @@ const InventoryDashboard: React.FC<InventoryDashboardProps> = ({
     {
       key: 'stock_value',
       label: 'Value',
-      render: (value: any, item: Inventory) => (
+      render: (_value: any, item: Inventory) => (
         <div className="text-right">
           <div className="font-medium text-gray-900">{item.stock_value}</div>
           <div className="text-xs text-gray-500">
@@ -130,7 +121,7 @@ const InventoryDashboard: React.FC<InventoryDashboardProps> = ({
     {
       key: 'last_updated',
       label: 'Last Updated',
-      render: (value: any, item: Inventory) => (
+      render: (_value: any, item: Inventory) => (
         <div className="text-sm text-gray-500">
           {new Date(item.last_updated).toLocaleDateString()}
         </div>
@@ -139,7 +130,7 @@ const InventoryDashboard: React.FC<InventoryDashboardProps> = ({
     {
       key: 'actions',
       label: 'Actions',
-      render: (value: any, item: Inventory) => (
+      render: (_value: any, item: Inventory) => (
         <div className="flex items-center space-x-2">
           <button
             onClick={() => onStockAdjustment(item)}

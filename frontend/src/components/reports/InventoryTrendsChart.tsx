@@ -1,22 +1,17 @@
 import React from 'react';
-import { Inventory } from '@/types';
 
 interface InventoryTrendsChartProps {
-  inventory: Inventory[];
-  dateRange: string;
+  inventory: any[];
 }
 
 const InventoryTrendsChart: React.FC<InventoryTrendsChartProps> = ({
-  inventory,
-  dateRange,
+  inventory: _inventory,
 }) => {
   return (
-    <div className="h-64 flex items-center justify-center">
-      <div className="text-center">
-        <div className="text-gray-400 text-sm mb-2">Inventory Trends Chart</div>
-        <div className="text-xs text-gray-500">
-          Chart showing inventory trends over {dateRange} days
-        </div>
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <h3 className="text-lg font-medium text-gray-900 mb-4">Inventory Trends</h3>
+      <div className="text-center text-gray-500">
+        <p>Chart component coming soon...</p>
       </div>
     </div>
   );

@@ -3,12 +3,12 @@ import { Inventory } from '@/types';
 
 interface InventoryTurnoverChartProps {
   inventory: Inventory[];
-  dateRange: string;
+  dateRange?: string;
 }
 
 const InventoryTurnoverChart: React.FC<InventoryTurnoverChartProps> = ({
-  inventory,
-  dateRange,
+  inventory: _inventory,
+  dateRange = '30',
 }) => {
   return (
     <div className="h-64 flex items-center justify-center">

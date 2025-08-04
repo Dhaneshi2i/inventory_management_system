@@ -1,20 +1,17 @@
 import React from 'react';
-import { Warehouse } from '@/types';
 
 interface WarehouseUtilizationChartProps {
-  warehouses: Warehouse[];
+  warehouses: any[];
 }
 
 const WarehouseUtilizationChart: React.FC<WarehouseUtilizationChartProps> = ({
-  warehouses,
+  warehouses: _warehouses,
 }) => {
   return (
-    <div className="h-64 flex items-center justify-center">
-      <div className="text-center">
-        <div className="text-gray-400 text-sm mb-2">Warehouse Utilization Chart</div>
-        <div className="text-xs text-gray-500">
-          Chart showing capacity utilization across warehouses
-        </div>
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+      <h3 className="text-lg font-medium text-gray-900 mb-4">Warehouse Utilization</h3>
+      <div className="text-center text-gray-500">
+        <p>Chart component coming soon...</p>
       </div>
     </div>
   );

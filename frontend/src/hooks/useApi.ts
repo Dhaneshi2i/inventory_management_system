@@ -10,12 +10,7 @@ import {
   StockMovement,
   Supplier,
   PurchaseOrder,
-  PurchaseOrderItem,
   StockAlert,
-  AlertRule,
-  AlertNotification,
-  Report,
-  DashboardWidget,
   DashboardSummary,
   ApiResponse,
   CreateProductForm,
@@ -94,7 +89,9 @@ export const useDeleteCategory = (options?: UseMutationOptions<void, any, string
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: (id: string) => apiEndpoints.categories.delete(id),
+    mutationFn: async (id: string) => {
+      await apiEndpoints.categories.delete(id);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['categories'] });
       toast.success('Category deleted successfully');
@@ -156,7 +153,9 @@ export const useDeleteProduct = (options?: UseMutationOptions<void, any, string>
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: (id: string) => apiEndpoints.products.delete(id),
+    mutationFn: async (id: string) => {
+      await apiEndpoints.products.delete(id);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] });
       toast.success('Product deleted successfully');
@@ -218,7 +217,9 @@ export const useDeleteWarehouse = (options?: UseMutationOptions<void, any, strin
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: (id: string) => apiEndpoints.warehouses.delete(id),
+    mutationFn: async (id: string) => {
+      await apiEndpoints.warehouses.delete(id);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['warehouses'] });
       toast.success('Warehouse deleted successfully');
@@ -370,7 +371,9 @@ export const useDeleteSupplier = (options?: UseMutationOptions<void, any, string
   const queryClient = useQueryClient();
   
   return useMutation({
-    mutationFn: (id: string) => apiEndpoints.suppliers.delete(id),
+    mutationFn: async (id: string) => {
+      await apiEndpoints.suppliers.delete(id);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['suppliers'] });
       toast.success('Supplier deleted successfully');

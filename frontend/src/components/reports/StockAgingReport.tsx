@@ -6,7 +6,7 @@ interface StockAgingReportProps {
 }
 
 const StockAgingReport: React.FC<StockAgingReportProps> = ({
-  inventory,
+  inventory: _inventory,
 }) => {
   return (
     <div className="h-64 flex items-center justify-center">

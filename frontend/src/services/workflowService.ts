@@ -4,9 +4,7 @@ import {
   PurchaseOrder, 
   StockMovement, 
   StockAlert,
-  Supplier,
-  Warehouse,
-  Product
+  Supplier
 } from '@/types';
 import { toast } from 'react-hot-toast';
 
@@ -83,7 +81,7 @@ export class WorkflowService {
   ) {
     try {
       // Get source inventory
-      const sourceInventory = await apiService.get<Inventory[]>(`/inventory/`, {
+      const sourceInventory = await apiService.get<{ results: Inventory[] }>(`/inventory/`, {
         params: { warehouse_id: fromWarehouseId, product_id: productId }
       });
       
@@ -92,7 +90,7 @@ export class WorkflowService {
       }
       
       // Get destination inventory
-      const destInventory = await apiService.get<Inventory[]>(`/inventory/`, {
+      const destInventory = await apiService.get<{ results: Inventory[] }>(`/inventory/`, {
         params: { warehouse_id: toWarehouseId, product_id: productId }
       });
       
@@ -319,7 +317,7 @@ export class WorkflowService {
   static async generateReorderRecommendations() {
     try {
       // Get all low stock items
-      const lowStockItems = await apiService.get<Inventory[]>('/inventory/', {
+      const lowStockItems = await apiService.get<{ results: Inventory[] }>('/inventory/', {
         params: { is_low_stock: true }
       });
       
@@ -367,16 +365,16 @@ export class WorkflowService {
    */
   static async generateInventoryReport(filters?: any) {
     try {
-      const inventory = await apiService.get<Inventory[]>('/inventory/', { params: filters });
+      const inventory = await apiService.get<{ results: Inventory[] }>('/inventory/', { params: filters });
       
       const report = {
         total_items: inventory.results.length,
-        total_value: inventory.results.reduce((sum, item) => {
+        total_value: inventory.results.reduce((sum: number, item: Inventory) => {
           const value = parseFloat(item.stock_value.replace('$', '').replace(',', ''));
           return sum + (isNaN(value) ? 0 : value);
         }, 0),
-        low_stock_items: inventory.results.filter(item => item.is_low_stock).length,
-        out_of_stock_items: inventory.results.filter(item => item.is_out_of_stock).length,
+        low_stock_items: inventory.results.filter((item: Inventory) => item.is_low_stock).length,
+        out_of_stock_items: inventory.results.filter((item: Inventory) => item.is_out_of_stock).length,
         items: inventory.results
       };
       
@@ -394,14 +392,14 @@ export class WorkflowService {
   static async analyzeSupplierPerformance(supplierId: string) {
     try {
       const supplier = await apiService.get<Supplier>(`/suppliers/${supplierId}/`);
-      const purchaseOrders = await apiService.get<PurchaseOrder[]>('/purchase-orders/', {
+      const purchaseOrders = await apiService.get<{ results: PurchaseOrder[] }>('/purchase-orders/', {
         params: { supplier_id: supplierId }
       });
       
       const analysis = {
         supplier: supplier,
         total_orders: purchaseOrders.results.length,
-        total_value: purchaseOrders.results.reduce((sum, po) => {
+        total_value: purchaseOrders.results.reduce((sum: number, po: PurchaseOrder) => {
           const value = parseFloat(po.total_amount.replace('$', '').replace(',', ''));
           return sum + (isNaN(value) ? 0 : value);
         }, 0),

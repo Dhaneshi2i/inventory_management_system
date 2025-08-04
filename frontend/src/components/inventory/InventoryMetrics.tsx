@@ -10,7 +10,7 @@ import {
   ClockIcon
 } from '@heroicons/react/24/outline';
 import { DashboardSummary } from '@/types';
-import { LoadingSpinner } from '@/components/LoadingSpinner';
+
 
 interface InventoryMetricsProps {
   data?: DashboardSummary;

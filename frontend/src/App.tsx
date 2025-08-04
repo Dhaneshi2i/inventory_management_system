@@ -13,8 +13,7 @@ import PurchaseOrdersPage from '@/pages/PurchaseOrdersPage';
 import StockAlertsPage from '@/pages/StockAlertsPage';
 import ReportsPage from '@/pages/ReportsPage';
 import Layout from '@/components/Layout';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { getErrorMessage } from '@/services/api';
+
 import './index.css';
 
 // Create a client with enhanced configuration
@@ -51,28 +50,7 @@ const queryClient = new QueryClient({
   },
 });
 
-// Protected Route Component
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-}
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth();
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner size="lg" />
-      </div>
-    );
-  }
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return <>{children}</>;
-};
 
 // App Routes Component
 const AppRoutes: React.FC = () => {

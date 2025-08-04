@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { motion } from 'framer-motion';
+
 import { 
   TruckIcon,
   ExclamationTriangleIcon,
@@ -44,7 +44,7 @@ const StockTransferForm: React.FC<StockTransferFormProps> = ({
     handleSubmit,
     watch,
     setValue,
-    formState: { errors, isValid },
+    formState: { errors },
     reset,
   } = useForm<FormData>({
     defaultValues: {

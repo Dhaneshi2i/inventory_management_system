@@ -8,10 +8,10 @@ import {
   PrinterIcon,
   EyeIcon
 } from '@heroicons/react/24/outline';
-import { motion } from 'framer-motion';
+
 
 import { apiService } from '@/services/api';
-import { DashboardSummary, Inventory, Warehouse } from '@/types';
+import { DashboardSummary, Inventory, Warehouse, ApiResponse } from '@/types';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
 // Components
@@ -35,12 +35,12 @@ const ReportsPage: React.FC = () => {
 
   const { data: inventory, isLoading: inventoryLoading } = useQuery({
     queryKey: ['inventory'],
-    queryFn: () => apiService.get<Inventory[]>('/inventory/'),
+    queryFn: () => apiService.get<ApiResponse<Inventory>>('/inventory/'),
   });
 
   const { data: warehouses, isLoading: warehousesLoading } = useQuery({
     queryKey: ['warehouses'],
-    queryFn: () => apiService.get<Warehouse[]>('/warehouses/'),
+    queryFn: () => apiService.get<ApiResponse<Warehouse>>('/warehouses/'),
   });
 
   const handleExportReport = (type: string) => {
@@ -171,7 +171,6 @@ const ReportsPage: React.FC = () => {
             <div className="p-6">
               <InventoryTrendsChart 
                 inventory={inventory?.results || []}
-                dateRange={dateRange}
               />
             </div>
           </div>

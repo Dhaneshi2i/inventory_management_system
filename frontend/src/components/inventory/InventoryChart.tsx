@@ -1,9 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  ChartBarIcon,
-  CubeIcon,
-  BuildingOfficeIcon
+  ChartBarIcon
 } from '@heroicons/react/24/outline';
 import { Inventory, Warehouse } from '@/types';
 
@@ -19,7 +17,7 @@ const InventoryChart: React.FC<InventoryChartProps> = ({
   loading 
 }) => {
   // Calculate chart data
-  const stockByWarehouse = warehouses?.results?.map(warehouse => {
+  const stockByWarehouse = warehouses?.map(warehouse => {
     const warehouseInventory = inventory.filter(item => item.warehouse.id === warehouse.id);
     const totalQuantity = warehouseInventory.reduce((sum, item) => sum + item.quantity, 0);
     const totalValue = warehouseInventory.reduce((sum, item) => {
