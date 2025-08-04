@@ -33,8 +33,6 @@ venv.bak/
 # Django
 *.log
 local_settings.py
-db.sqlite3
-db.sqlite3-journal
 media/
 staticfiles/
 static/
@@ -158,10 +156,6 @@ temp/
 logs
 *.log
 
-# Database
-*.db
-*.sqlite
-*.sqlite3
 
 # Backup files
 *.bak
